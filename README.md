@@ -3,7 +3,7 @@
 ## CICLO - 1
 
 REQUISITOS FUNCIONALES
-  El simulador debe permitir:
+- El simulador debe permitir:
     1. Crear a Iceepeecee
     2. Adicionar y eliminar una isla
     3. Adicionar y eliminar un vuelo
