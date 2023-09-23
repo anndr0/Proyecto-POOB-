@@ -1,6 +1,7 @@
 # Proyecto-POOB-
 
-##CICLO - 1
+## CICLO - 1
+
 REQUISITOS FUNCIONALES
 El simulador debe permitir:
 1. Crear a Iceepeecee
