@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.target=Fligth
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Flight\ here.\r\n\ \r\n\ @author\ (Laura\ Natalia\ Rojas\ and\ Ana\ Maria\ Duran)\ \r\n\ @version\ (23/09/23)\r\n
+comment1.params=color\ from\ to
+comment1.target=Fligth(java.lang.String,\ int[],\ int[])
+comment10.params=color
+comment10.target=Fligth\ getFlightByColor(java.lang.String)
+comment11.params=color
+comment11.target=java.lang.String\ locationFligth(java.lang.String)
+comment2.params=
+comment2.target=int[]\ getFrom()
+comment3.params=
+comment3.target=int[]\ getTo()
+comment4.params=
+comment4.target=java.lang.String\ getColor()
+comment5.params=newColor
+comment5.target=void\ setColor(java.lang.String)
+comment6.params=color
+comment6.target=void\ makeFligthVisible(java.lang.String)
+comment7.params=color
+comment7.target=void\ makeFligthInvisible(java.lang.String)
+comment8.params=
+comment8.target=void\ draw()
+comment9.params=color
+comment9.target=void\ delFligth(java.lang.String)
+numComments=12
