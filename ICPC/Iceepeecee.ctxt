@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Iceepeecee
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Iceepeecee\ here.\r\n\ \r\n\ @author\ (Ana\ Mar\u00EDa\ Dur\u00E1n\ And\ Laura\ Natalia\ Rojas)\ \r\n\ @version\ (23/03/23)\r\n
+comment1.params=length\ width
+comment1.target=Iceepeecee(int,\ int)
+comment2.params=color\ vertexArray
+comment2.target=void\ addIsland(java.lang.String,\ int[][])
+comment2.text=\r\n\ Add\ an\ island\ to\ Iceepeecee.\r\n\ @param\ color\ \ \ \ \ \ \ the\ color\ of\ the\ island\r\n\ @param\ vertexArray\ the\ vertices\ of\ the\ island\r\n
+numComments=3

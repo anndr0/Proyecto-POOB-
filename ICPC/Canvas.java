@@ -204,5 +204,19 @@ public class Canvas{
             graphic.fill(shape);
         }
     }
+    
+    public void drawLine(int x1, int y1, int x2, int y2, String color) {
+        setForegroundColor(color);
+    
+        // Asegúrate de que las coordenadas estén dentro del canvas
+        x1 = Math.max(0, Math.min(x1, canvas.getWidth()));
+        y1 = Math.max(0, Math.min(y1, canvas.getHeight()));
+        x2 = Math.max(0, Math.min(x2, canvas.getWidth()));
+        y2 = Math.max(0, Math.min(y2, canvas.getHeight()));
+        
+        // Dibujar la línea
+        graphic.drawLine(x1, y1, x2, y2);
+        canvas.repaint();
+    }
 
 }

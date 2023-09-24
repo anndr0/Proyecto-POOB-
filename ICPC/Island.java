@@ -44,6 +44,31 @@ public class Island {
         islands.remove(color); // Elimina la isla del mapa
     }
     }
+    
+    public String locationIsland(String color) {
+    Polygon polygon = islands.get(color);
+    if (polygon != null) {
+        int[][] coordinates = polygon.getVertexArray();
+        StringBuilder location = new StringBuilder("Location of Island (Color: " + color + "): {");
+        
+        for (int i = 0; i < coordinates.length; i++) {
+            location.append("{").append(coordinates[i][0]).append(", ").append(coordinates[i][1]).append("}");
+            if (i < coordinates.length - 1) {
+                location.append(", ");
+            }
+        }
+        
+        location.append("}");
+        return location.toString();
+    } else {
+        return "Island not found"; // Devuelve un mensaje si la isla no existe
+    }
 }
+}
+
+
+
+
+
 
 
