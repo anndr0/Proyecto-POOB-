@@ -32,6 +32,15 @@ public class Canvas{
         canvasSingleton.setVisible(true);
         return canvasSingleton;
     }
+    
+    public static Canvas getCanvas(int length, int width){
+        if(canvasSingleton == null) {
+            canvasSingleton = new Canvas("BlueJ Shapes Demo", width, length, 
+                                         Color.white);
+        }
+        canvasSingleton.setVisible(true);
+        return canvasSingleton;
+    }
 
     //  ----- instance part -----
 
@@ -208,7 +217,7 @@ public class Canvas{
     public void drawLine(int x1, int y1, int x2, int y2, String color) {
         setForegroundColor(color);
     
-        // Asegúrate de que las coordenadas estén dentro del canvas
+        // coordenadas dentro del canvas
         x1 = Math.max(0, Math.min(x1, canvas.getWidth()));
         y1 = Math.max(0, Math.min(y1, canvas.getHeight()));
         x2 = Math.max(0, Math.min(x2, canvas.getWidth()));

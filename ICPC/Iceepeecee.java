@@ -16,8 +16,8 @@ public class Iceepeecee {
     private Canvas canvas;
     
     public Iceepeecee(int length, int width) {
-        canvas = Canvas.getCanvas();
-        canvas.setVisible(false);
+        canvas = Canvas.getCanvas(length,width);
+        canvas.setVisible(true);
         islands = new HashMap<>();
         isVisible = false;
     }
@@ -31,7 +31,29 @@ public class Iceepeecee {
         islands.put(color, island);
         
     }
+    /**
+     * Delete an island from Iceepeecee.
+     * @param color the color of the island to delete
+     */
+    public void deleteIsland(String color) {
+        Island island = islands.get(color);
+        if (island != null) {
+            islands.remove(color);
+            island.delIsland(color); // Llama al método para borrar la isla en Island
+        }
+    }
     
-    
-    
+    /**
+     * Get the location of an island by color.
+     * @param island the color of the island to query
+     * @return a string representing the location of the island
+     */
+    public String islandLocation(String island) {
+        Island islandObj = islands.get(island);
+        if (islandObj != null) {
+            return islandObj.locationIsland(island);
+        } else {
+            return "Island not found"; // Devuelve un mensaje si la isla no existe
+        }
+    }
 }
