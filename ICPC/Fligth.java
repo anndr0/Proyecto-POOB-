@@ -11,17 +11,19 @@ import java.util.HashMap;
  */
 
 public class Fligth {
-    private int[] from; // Coordenadas de inicio [x1, y1]
-    private int[] to;   // Coordenadas de fin [x2, y2]
+    private int[] from; // Coordenadas de inicio [x1, y1, z1]
+    private int[] to;   // Coordenadas de fin [x2, y2, z2]
     private String color;
     private boolean isVisible;
     private static HashMap<String, Fligth> fligths = new HashMap<>();
+    private List<Photograph> photographs;
         
     public Fligth(String color, int[] from, int[] to) {
         this.color = color;
         this.from = from;
         this.to = to;
         isVisible = true; // Establecer el vuelo como visible al crearlo
+        photographs = new ArrayList<>();
         fligths.put(color, this); // Agregar este vuelo al HashMap usando el color como clave
         draw(); // Dibujar el vuelo automáticamente
     }
@@ -36,6 +38,14 @@ public class Fligth {
     
     public String getColor() {
         return color;
+    }
+    
+    public int getFromZ() {
+        return from[2];
+    }
+
+    public int getToZ() {
+        return to[2];
     }
     
     public void setColor(String newColor) {
@@ -56,21 +66,18 @@ public class Fligth {
         if (flight != null) {
             flight.isVisible = false; // Hace invisible el vuelo especificado
             Canvas canvas = Canvas.getCanvas();
-            // Dibuja una línea del mismo color que el fondo para "borrar" el vuelo existente
-            canvas.drawLine(flight.from[0], flight.from[1], flight.to[0], flight.to[1], "white");
+            canvas.erase(flight); // Borra la línea del vuelo
         }
     }
 
-    private void draw() {
-        if (isVisible) {
-            Canvas canvas = Canvas.getCanvas();
-            // Redondea las coordenadas a números enteros
-            int x1 = Math.round(from[0]);
-            int y1 = Math.round(from[1]);
-            int x2 = Math.round(to[0]);
-            int y2 = Math.round(to[1]);
-            canvas.drawLine(x1, y1, x2, y2,color);
-        }
+
+    public void draw() {
+        int[] from = getFrom();
+        int[] to = getTo();
+        int[] xPoints = {from[0], to[0]};
+        int[] yPoints = {from[1], to[1]};
+        Canvas canvas = Canvas.getCanvas();
+        canvas.draw(this, color, new java.awt.Polygon(xPoints, yPoints, 2), 255);
     }
         
     public void delFligth(String color) {
@@ -81,10 +88,18 @@ public class Fligth {
         }
     }
 
-    
+    public void camera(double teta) {
+        Photograph photograph = new Photograph(this, teta); // Crear la fotografía con el vuelo actual y el ángulo especificado
+        photographs.add(photograph); // Agregar la fotografía a la lista de fotografías
+    }
+
     
     public static Fligth getFlightByColor(String color) {
-        return fligths.get(color);
+            return fligths.get(color);
+    }
+    
+    public List<Photograph> getPhotographs() {
+        return photographs;
     }
     
     public String locationFligth(String color) {
@@ -102,6 +117,12 @@ public class Fligth {
         } else {
             return "Flight not found"; // Devuelve un mensaje si el vuelo no existe
         }
+    }
+    
+    public double getDistance() {
+        int dx = to[0] - from[0];
+        int dy = to[1] - from[1];
+        return Math.sqrt(dx * dx + dy * dy);
     }
 
 }

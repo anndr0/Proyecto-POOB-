@@ -22,6 +22,7 @@ public class Iceepeecee {
         islands = new HashMap<>();
         fligths = new HashMap<>();
         isVisible = false;
+        
     }
     
     /**
@@ -90,11 +91,11 @@ public class Iceepeecee {
      * @return a string representing the location of the island
      */
     public String fligthLocation(String fligth) {
-        Fligth islandObj = fligths.get(fligth);
-        if (islandObj != null) {
-            return islandObj.locationFligth(fligth);
+        Fligth fligthObj = fligths.get(fligth);
+        if (fligthObj != null) {
+            return fligthObj.locationFligth(fligth);
         } else {
-            return "Island not found"; // Devuelve un mensaje si la isla no existe
+            return "Fligth not found"; // Devuelve un mensaje si la isla no existe
         }
     }
 }

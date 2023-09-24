@@ -101,10 +101,10 @@ public class Canvas{
      // Note: this is a slightly backwards way of maintaining the shape
      // objects. It is carefully designed to keep the visible shape interfaces
      // in this project clean and simple for educational purposes.
-    public void draw(Object referenceObject, String color, Shape shape){
+    public void draw(Object referenceObject, String color, Shape shape, int alpha){
         objects.remove(referenceObject);   // just in case it was already there
         objects.add(referenceObject);      // add at the end
-        shapes.put(referenceObject, new ShapeDescription(shape, color));
+        shapes.put(referenceObject, new ShapeDescription(shape, color, alpha));
         redraw();
     }
  
@@ -141,9 +141,88 @@ public class Canvas{
             graphic.setColor(Color.LIGHT_GRAY);
         else if(colorString.equals("orange"))
             graphic.setColor(Color.orange);
+            
         else
             graphic.setColor(Color.black);
     }
+ 
+    public void setForegroundColor(String colorString, int alpha) {
+    Color color;
+    switch (colorString) {
+        case "red":
+            color = new Color(255, 0, 0, alpha);
+            break;
+        case "green":
+            color = new Color(0, 255, 0, alpha);
+            break;
+        case "blue":
+            color = new Color(0, 0, 255, alpha);
+            break;
+        case "yellow":
+            color = new Color(255, 255, 0, alpha);
+            break;
+        case "purple":
+            color = new Color(128, 0, 128, alpha);
+            break;
+        case "cyan":
+            color = new Color(0, 255, 255, alpha);
+            break;
+        case "pink":
+            color = new Color(255, 182, 193, alpha);
+            break;
+        case "orange":
+            color = new Color(255, 165, 0, alpha);
+            break;
+        case "brown":
+            color = new Color(139, 69, 19, alpha);
+            break;
+        case "gray":
+            color = new Color(128, 128, 128, alpha);
+            break;
+        case "magenta":
+            color = new Color(255, 0, 255, alpha);
+            break;
+        case "white":
+            color = new Color(255, 255, 255, alpha);
+            break;
+        case "lightBlue":
+            color = new Color(173, 216, 230, alpha);
+            break;
+        case "lime":
+            color = new Color(50, 205, 50, alpha);
+            break;
+        case "gold":
+            color = new Color(255, 215, 0, alpha);
+            break;
+        case "teal":
+            color = new Color(0, 128, 128, alpha);
+            break;
+        case "violet":
+            color = new Color(238, 130, 238, alpha);
+            break;
+        case "coral":
+            color = new Color(255, 127, 80, alpha);
+            break;
+        case "lavender":
+            color = new Color(230, 230, 250, alpha);
+            break;
+        case "olive":
+            color = new Color(128, 128, 0, alpha);
+            break;
+        case "maroon":
+            color = new Color(128, 0, 0, alpha);
+            break;
+            case "turquoise":
+            color = new Color(64, 224, 208, alpha);
+            break;
+        default:
+            color = new Color(0, 0, 0, alpha);
+            break;
+    }
+
+    graphic.setColor(color);
+}
+
 
     /**
      * Wait for a specified number of milliseconds before finishing.
@@ -201,16 +280,17 @@ public class Canvas{
     private class ShapeDescription{
         private Shape shape;
         private String colorString;
-
-        public ShapeDescription(Shape shape, String color){
+        private int alpha;
+        public ShapeDescription(Shape shape, String color, int alpha){
             this.shape = shape;
             colorString = color;
+            this.alpha = alpha;
         }
 
         public void draw(Graphics2D graphic){
-            setForegroundColor(colorString);
+            setForegroundColor(colorString, alpha);
             graphic.draw(shape);
-            graphic.fill(shape);
+            graphic.fill(shape);  
         }
     }
     
@@ -228,4 +308,6 @@ public class Canvas{
         canvas.repaint();
     }
 
+    
 }
+

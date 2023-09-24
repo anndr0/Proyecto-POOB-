@@ -80,7 +80,7 @@ public class Polygon {
                 yPoints[i] = vertex.getY();
             }
 
-            canvas.draw(this, color, new java.awt.Polygon(xPoints, yPoints, vertices.size()));
+            canvas.draw(this, color, new java.awt.Polygon(xPoints, yPoints, vertices.size()),255);
             canvas.wait(10);
         }
     }
@@ -97,33 +97,33 @@ public class Polygon {
     }
     
     public int[][] getVertexArray() {
-    int[][] vertexArray = new int[vertices.size()][2];
-
-    for (int i = 0; i < vertices.size(); i++) {
-        Point vertex = vertices.get(i);
-        vertexArray[i][0] = vertex.getX();
-        vertexArray[i][1] = vertex.getY();
-    }
-
-    return vertexArray;
+        int[][] vertexArray = new int[vertices.size()][2];
+    
+        for (int i = 0; i < vertices.size(); i++) {
+            Point vertex = vertices.get(i);
+            vertexArray[i][0] = vertex.getX();
+            vertexArray[i][1] = vertex.getY();
+        }
+    
+        return vertexArray;
     }
     
     public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("Polygon with ").append(vertices.size()).append(" vertices: [");
-
-    for (int i = 0; i < vertices.size(); i++) {
-        Point vertex = vertices.get(i);
-        sb.append("(").append(vertex.getX()).append(", ").append(vertex.getY()).append(")");
-
-        if (i < vertices.size() - 1) {
-            sb.append(", ");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Polygon with ").append(vertices.size()).append(" vertices: [");
+    
+        for (int i = 0; i < vertices.size(); i++) {
+            Point vertex = vertices.get(i);
+            sb.append("(").append(vertex.getX()).append(", ").append(vertex.getY()).append(")");
+    
+            if (i < vertices.size() - 1) {
+                sb.append(", ");
+            }
         }
+    
+        sb.append("]");
+    
+        return sb.toString();
     }
-
-    sb.append("]");
-
-    return sb.toString();
-}
 
 }

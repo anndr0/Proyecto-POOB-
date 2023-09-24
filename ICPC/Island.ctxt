@@ -11,4 +11,6 @@ comment4.params=color
 comment4.target=void\ delIsland(java.lang.String)
 comment5.params=color
 comment5.target=java.lang.String\ locationIsland(java.lang.String)
-numComments=6
+comment6.params=
+comment6.target=int[][]\ getVertexArray()
+numComments=7
