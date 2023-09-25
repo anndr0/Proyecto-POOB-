@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=Photograph
-comment1.params=fligth\ teta
-comment1.target=Photograph(Fligth,\ double)
-comment2.params=
-comment2.target=void\ draw()
-numComments=3
