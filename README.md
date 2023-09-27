@@ -1,5 +1,5 @@
 # Proyecto-POOB-
-
+-----
 ## CICLO - 1
 
 ### REQUISITOS FUNCIONALES. 
@@ -12,7 +12,7 @@ El simulador debe permitir:
 5. Consultar la información de Iceepeecee
 6. Hacer visible o invisible el simulador
 7. Terminar el simulador
-
+-----
 ## SEGUNDO CICLO
 EXTENSIBILIDAD.
 
