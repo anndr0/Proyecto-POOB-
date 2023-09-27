@@ -1,6 +1,6 @@
 # Proyecto-POOB-
 -----
-## CICLO - 1
+## CICLO - 1 ಠ╭╮ಠ
 
 ### REQUISITOS FUNCIONALES. 
 El simulador debe permitir:
@@ -13,7 +13,7 @@ El simulador debe permitir:
 6. Hacer visible o invisible el simulador ✅
 7. Terminar el simulador ✅
 -----
-## SEGUNDO CICLO
+## SEGUNDO CICLO (๑•́_•̀๑) 
 EXTENSIBILIDAD.
 
 ### REQUISITOS FUNCIONALES
