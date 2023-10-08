@@ -17,8 +17,8 @@ El simulador debe permitir:
 EXTENSIBILIDAD.
 
 ### REQUISITOS FUNCIONALES
- 8. Debe permitir crear un caso en Iceepeecee con la entrada del Problem F.1
+ 8. Debe permitir crear un caso en Iceepeecee con la entrada del Problem F.1✅
  9. Debe permitir incluir cámaras con ángulos no enteros ✅
- 10. Debe permitir consutar todas las islas y los vuelos
+ 10. Debe permitir consutar todas las islas y los vuelos✅
  11. Debe permitir consultar las islas registradas en las fotografías
  12. Debe permitir consultar los vuelos con fotografías inútiles
