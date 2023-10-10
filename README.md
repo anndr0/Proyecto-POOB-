@@ -22,3 +22,4 @@ EXTENSIBILIDAD.
  10. Debe permitir consutar todas las islas y los vuelos✅
  11. Debe permitir consultar las islas registradas en las fotografías✅
  12. Debe permitir consultar los vuelos con fotografías inútiles
+ :)
