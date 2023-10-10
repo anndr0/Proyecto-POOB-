@@ -20,5 +20,5 @@ EXTENSIBILIDAD.
  8. Debe permitir crear un caso en Iceepeecee con la entrada del Problem F.1✅
  9. Debe permitir incluir cámaras con ángulos no enteros ✅
  10. Debe permitir consutar todas las islas y los vuelos✅
- 11. Debe permitir consultar las islas registradas en las fotografías
+ 11. Debe permitir consultar las islas registradas en las fotografías✅
  12. Debe permitir consultar los vuelos con fotografías inútiles
