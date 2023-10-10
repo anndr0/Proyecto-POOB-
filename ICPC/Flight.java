@@ -137,18 +137,40 @@ public class Flight {
             flights.remove(color);
         }
     }
+    
+    /**
+     * Clear all the photographs taken during the flight, making previous ones invisible and keeping the last one registered.
+     */
+    public void clearPhotographs() {
+        // Make previous photographs invisible
+        for (int i = 0; i < photographs.size() - 1; i++) {
+            photographs.get(i).makeInvisible();
+        }
+    
+        // Clear all photographs except the last one
+        if (photographs.size() > 0) {
+            photographs.subList(0, photographs.size() - 1).clear();
+        }
+    }
+
 
     /**
      * Capture a photograph during the flight with a specified angle.
      * 
      * @param color The color of the flight.
-     * @param teta  The angle at which the photograph is taken.
+     * @param theta  The angle at which the photograph is taken.
      */
     public void camera(String color, double theta) {
         Photograph photograph = new Photograph(color, theta);
+        // Reemplazar la última fotografía si ya existía una
+        if (!photographs.isEmpty()) {
+            clearPhotographs();
+        }
         photographs.add(photograph);
     }
 
+    
+    
     /**
      * Get a flight by its color.
      * 
@@ -226,6 +248,17 @@ public class Flight {
         // Devolver un valor predeterminado (puedes cambiarlo según tus necesidades)
         return 0.0;
     }
-        
+    
+        /**
+     * Imprime la información de todas las fotografías tomadas durante el vuelo.
+     */
+    public void printPhotographs() {
+        System.out.println("Fotografías tomadas durante el vuelo de color " + color + ":");
+        for (Photograph photograph : photographs) {
+            System.out.println("Ángulo (theta): " + photograph.getTheta());
+            // Aquí puedes agregar más información sobre la fotografía si es necesario
+        }
+    }
+
     
 }

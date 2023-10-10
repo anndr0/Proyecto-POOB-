@@ -330,7 +330,12 @@ public class Iceepeecee {
     public void photograph(String flightColor, double theta) {
         Flight flight = flights.get(flightColor); 
         if (flight != null) {
+            // Elimina todas las fotografías previas del vuelo
+            flight.clearPhotographs();
+    
+            // Toma la nueva fotografía
             flight.camera(flightColor, theta); 
+    
             operationSuccess = true;
             ok();
         } else {
@@ -339,6 +344,7 @@ public class Iceepeecee {
             ok();
         }
     }
+
     
     /**
      * Capture photographs from all flights in Iceepeecee at the given angle (theta).
@@ -612,7 +618,7 @@ public class Iceepeecee {
         return null; // Otra opción es devolver una matriz vacía en lugar de null si lo prefieres
     }
 
-    public String[] islasContenidasEnFotografias() {
+    public String[] observedIslands() {
         List<String> islasContenidas = new ArrayList<>();
         
         // Itera a través de todas las islas
@@ -687,7 +693,7 @@ public class Iceepeecee {
      * @param vertices La lista de vértices del polígono.
      * @return true si el punto está dentro del polígono, false en caso contrario.
      */
-    public static boolean isPointInsidePolygon(Point point, List<Point> vertices) {
+    private static boolean isPointInsidePolygon(Point point, List<Point> vertices) {
         int intersectCount = 0;
         double x1, x2, y1, y2;
     

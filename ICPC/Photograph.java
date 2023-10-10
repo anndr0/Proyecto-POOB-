@@ -26,7 +26,7 @@ public class Photograph {
      */
     public Photograph(String flightColor, double theta) {
         this.flightColor = flightColor;
-        this.theta = theta;
+        this.theta = Math.toRadians(theta);
         isVisible = true;
         this.flight = Flight.getFlightByColor(flightColor);
         
@@ -62,48 +62,47 @@ public class Photograph {
         isVisible = true;
         draw();
     }
+
     public boolean isVisible(){
         return isVisible;
     }
-    /**
-     * Draw the photograph on the canvas.
-     * The photograph is drawn as a trapezoid shape representing the field of view.
-     * The opacity of the photograph is adjusted based on the flight's color.
-     */
+    
     public void draw() {
-        if (isVisible && flight != null) {
+        if (isVisible) {
             Canvas canvas = Canvas.getCanvas();
+            Flight flight = Flight.getFlightByColor(flightColor);
 
-            int[] from = flight.getFrom();
-            int[] to = flight.getTo();
-            int z1 = from[2];
-            int z2 = to[2];
+            if (flight != null) {
+                int[] from = flight.getFrom();
+                int[] to = flight.getTo();
+                int z1 = from[2];
+                int z2 = to[2];
+                
+                // Calcular el ángulo perpendicular
+                double perpendicularAngle = Math.atan2(to[1] - from[1], to[0] - from[0]) + Math.PI / 2;
+                double baseMenor = z1 * Math.tan(theta);
+                double baseMayor = z2 * Math.tan(theta);
 
-            // Calculate the bases of the trapezoid
-            double baseMenor = z1 * Math.tan(theta);
-            double baseMayor = z2 * Math.tan(theta);
+                // Calcular las coordenadas de los vértices perpendiculares al vuelo
+                int x1 = from[0] + (int) (baseMenor * Math.cos(perpendicularAngle));
+                int y1 = from[1] + (int) (baseMenor * Math.sin(perpendicularAngle));
+                
+                int x2 = to[0] + (int) (baseMayor * Math.cos(perpendicularAngle));
+                int y2 = to[1] + (int) (baseMayor * Math.sin(perpendicularAngle));
 
-            // Calculate the vertices of the trapezoid
-            int x1 = from[0];
-            int x2 = to[0];
-            int y1 = from[1];
-            int y2 = to[1];
+                // Calcular las otras dos coordenadas
+                int x3 = to[0] + (int) (baseMayor * Math.cos(perpendicularAngle + Math.PI));
+                int y3 = to[1] + (int) (baseMayor * Math.sin(perpendicularAngle + Math.PI));
 
-            int x3 = x1 + (int) baseMenor;
-            int x4 = x1 - (int) baseMenor;
-            
-            int x5 = x2 + (int) baseMayor;
-            int x6 = x2 - (int) baseMayor;
-            
-            int y3 = y1;
-            int y4 = y2;
+                int x4 = from[0] + (int) (baseMenor * Math.cos(perpendicularAngle + Math.PI));
+                int y4 = from[1] + (int) (baseMenor * Math.sin(perpendicularAngle + Math.PI));
 
-            int[] xPoints = {x4, x6, x5, x3};
-            int[] yPoints = {y1, y2, y4, y3};
-            
-            // Get the color of the flight and adjust the opacity
-            String flightColor = flight.getColor();
-            canvas.draw(this, flightColor, new java.awt.Polygon(xPoints, yPoints, 4), 80);
+                int[] xPoints = {x1, x2, x3, x4};
+                int[] yPoints = {y1, y2, y3, y4};
+
+                String flightColor = flight.getColor();
+                canvas.draw(this, flightColor, new java.awt.Polygon(xPoints, yPoints, 4), 80);
+            }
         }
     }
     
@@ -113,9 +112,19 @@ public class Photograph {
      * @return The angle (theta) of the photograph.
      */
     public double getTheta() {
+        this.theta = theta;
         return theta;
     }
-    
+    /**
+     * Set the angle (theta) of the photograph.
+     * 
+     * @param theta The new angle (theta) of the photograph.
+     */
+    public double setTheta() {
+        this.theta = theta;
+        return theta;
+    }
+
     /**
      * Verifies if the last operation in the makeVisible function was successful.
      * 
@@ -128,7 +137,7 @@ public class Photograph {
     public List<Point> getVertices() {
         List<Point> vertices = new ArrayList<>();
 
-        if (isVisible && flight != null) {
+        if (isVisible) {
             int[] from = flight.getFrom();
             int[] to = flight.getTo();
             int z1 = from[2];

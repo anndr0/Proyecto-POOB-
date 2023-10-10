@@ -216,7 +216,7 @@ public class IceepeeceeTest {
         double theta = 48.26;
         iceepeecee.photograph(theta);
         // Llama al método que deseas probar
-        String[] islasContenidas = iceepeecee.islasContenidasEnFotografias();
+        String[] islasContenidas = iceepeecee.observedIslands();
 
         // Realiza afirmaciones (assertions) para verificar el resultado esperado
         // Supongamos que esperamos que algunas islas estén contenidas en las fotografías
