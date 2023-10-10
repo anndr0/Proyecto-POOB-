@@ -618,41 +618,43 @@ public class Iceepeecee {
         return null; // Otra opción es devolver una matriz vacía en lugar de null si lo prefieres
     }
 
-    public String[] observedIslands() {
-        List<String> islasContenidas = new ArrayList<>();
+public String[] observedIslands() {
+    List<String> islasContenidas = new ArrayList<>();
+    
+    // Itera a través de todas las islas
+    for (Island island : islands.values()) {
+        String islandColor = island.getColor();
+        int[][] islandVertices = getIslandVertices(islandColor);
         
-        // Itera a través de todas las islas
-        for (Island island : islands.values()) {
-            String islandColor = island.getColor();
-            int[][] islandVertices = getIslandVertices(islandColor);
+        // Verifica si la isla tiene vértices antes de continuar
+        if (islandVertices != null && islandVertices.length > 0) {
+            // Convierte los vértices de la isla en una lista de puntos
+            List<Point> islandPoints = convertToPoints(islandVertices);
             
-            // Verifica si la isla tiene vértices antes de continuar
-            if (islandVertices != null && islandVertices.length > 0) {
-                // Convierte los vértices de la isla en una lista de puntos
-                List<Point> islandPoints = convertToPoints(islandVertices);
+            // Itera a través de todas las fotografías
+            for (Flight flight : flights.values()) {
+                List<Photograph> photographs = flight.getPhotographs();
                 
-                // Itera a través de todas las fotografías
-                for (Flight flight : flights.values()) {
-                    List<Photograph> photographs = flight.getPhotographs();
+                for (Photograph photograph : photographs) {
+                    List<Point> photographVertices = photograph.getVertices();
                     
-                    for (Photograph photograph : photographs) {
-                        List<Point> photographVertices = photograph.getVertices();
-                        
-                        // Verifica si la isla está completamente contenida en la fotografía
-                        if (isPolygonInsidePolygon(islandPoints, photographVertices)) {
-                            islasContenidas.add(islandColor);
-                            break; // Puedes omitir la búsqueda en otras fotografías
-                        }
+                    // Verifica si la isla está completamente contenida en la fotografía
+                    if (isPolygonInsidePolygon(islandPoints, photographVertices)) {
+                        islasContenidas.add(islandColor);
+                        break; // Puedes omitir la búsqueda en otras fotografías
                     }
                 }
             }
         }
-        
-        // Convierte la lista de islas contenidas en un arreglo de String
-        String[] islasContenidasArray = islasContenidas.toArray(new String[0]);
-        
-        return islasContenidasArray;
     }
+    
+    // Convierte la lista de islas contenidas en un arreglo de String
+    String[] islasContenidasArray = islasContenidas.toArray(new String[0]);
+    
+    return islasContenidasArray;
+}
+
+
     
     /**
      * Convierte una matriz de vértices en una lista de puntos.

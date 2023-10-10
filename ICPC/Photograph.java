@@ -67,44 +67,45 @@ public class Photograph {
         return isVisible;
     }
     
-    public void draw() {
-        if (isVisible) {
-            Canvas canvas = Canvas.getCanvas();
-            Flight flight = Flight.getFlightByColor(flightColor);
+public void draw() {
+    if (isVisible) {
+        Canvas canvas = Canvas.getCanvas();
+        Flight flight = Flight.getFlightByColor(flightColor);
 
-            if (flight != null) {
-                int[] from = flight.getFrom();
-                int[] to = flight.getTo();
-                int z1 = from[2];
-                int z2 = to[2];
-                
-                // Calcular el ángulo perpendicular
-                double perpendicularAngle = Math.atan2(to[1] - from[1], to[0] - from[0]) + Math.PI / 2;
-                double baseMenor = z1 * Math.tan(theta);
-                double baseMayor = z2 * Math.tan(theta);
+        if (flight != null) {
+            int[] from = flight.getFrom();
+            int[] to = flight.getTo();
+            double z1 = from[2];
+            double z2 = to[2];
 
-                // Calcular las coordenadas de los vértices perpendiculares al vuelo
-                int x1 = from[0] + (int) (baseMenor * Math.cos(perpendicularAngle));
-                int y1 = from[1] + (int) (baseMenor * Math.sin(perpendicularAngle));
-                
-                int x2 = to[0] + (int) (baseMayor * Math.cos(perpendicularAngle));
-                int y2 = to[1] + (int) (baseMayor * Math.sin(perpendicularAngle));
+            // Calcular el ángulo perpendicular
+            double perpendicularAngle = Math.atan2(to[1] - from[1], to[0] - from[0]) + Math.PI / 2;
+            double baseMenor = z1 * Math.tan(theta);
+            double baseMayor = z2 * Math.tan(theta);
 
-                // Calcular las otras dos coordenadas
-                int x3 = to[0] + (int) (baseMayor * Math.cos(perpendicularAngle + Math.PI));
-                int y3 = to[1] + (int) (baseMayor * Math.sin(perpendicularAngle + Math.PI));
+            // Calcular las coordenadas de los vértices perpendiculares al vuelo
+            double x1 = from[0] + (baseMenor * Math.cos(perpendicularAngle));
+            double y1 = from[1] + (baseMenor * Math.sin(perpendicularAngle));
+            
+            double x2 = to[0] + (baseMayor * Math.cos(perpendicularAngle));
+            double y2 = to[1] + (baseMayor * Math.sin(perpendicularAngle));
 
-                int x4 = from[0] + (int) (baseMenor * Math.cos(perpendicularAngle + Math.PI));
-                int y4 = from[1] + (int) (baseMenor * Math.sin(perpendicularAngle + Math.PI));
+            // Calcular las otras dos coordenadas
+            double x3 = to[0] + (baseMayor * Math.cos(perpendicularAngle + Math.PI));
+            double y3 = to[1] + (baseMayor * Math.sin(perpendicularAngle + Math.PI));
 
-                int[] xPoints = {x1, x2, x3, x4};
-                int[] yPoints = {y1, y2, y3, y4};
+            double x4 = from[0] + (baseMenor * Math.cos(perpendicularAngle + Math.PI));
+            double y4 = from[1] + (baseMenor * Math.sin(perpendicularAngle + Math.PI));
 
-                String flightColor = flight.getColor();
-                canvas.draw(this, flightColor, new java.awt.Polygon(xPoints, yPoints, 4), 80);
-            }
+            int[] xPoints = {(int) x1, (int) x2, (int) x3, (int) x4};
+            int[] yPoints = {(int) y1, (int) y2, (int) y3, (int) y4};
+
+            String flightColor = flight.getColor();
+            canvas.draw(this, flightColor, new java.awt.Polygon(xPoints, yPoints, 4), 80);
         }
     }
+}
+
     
     /**
      * Get the angle (theta) of the photograph.
@@ -134,40 +135,54 @@ public class Photograph {
         return operationSuccess;
     }
     
-    public List<Point> getVertices() {
-        List<Point> vertices = new ArrayList<>();
-
-        if (isVisible) {
+public List<Point> getVertices() {
+    List<Point> vertices = new ArrayList<>();
+    if (isVisible) {
+        Canvas canvas = Canvas.getCanvas();
+        Flight flight = Flight.getFlightByColor(flightColor);
+        if (flight != null) {
             int[] from = flight.getFrom();
             int[] to = flight.getTo();
             int z1 = from[2];
             int z2 = to[2];
 
-            // Calculate the bases of the trapezoid
+            // Calcular el ángulo perpendicular
+            double perpendicularAngle = Math.atan2(to[1] - from[1], to[0] - from[0]) + Math.PI / 2;
             double baseMenor = z1 * Math.tan(theta);
             double baseMayor = z2 * Math.tan(theta);
 
-            // Calculate the vertices of the trapezoid
-            int x1 = from[0];
-            int x2 = to[0];
-            int y1 = from[1];
-            int y2 = to[1];
-
-            int x3 = x1 + (int) baseMenor;
-            int x4 = x1 - (int) baseMenor;
+            // Calcular las coordenadas de los vértices perpendiculares al vuelo
+            double x1 = from[0] + (baseMenor * Math.cos(perpendicularAngle));
+            double y1 = from[1] + (baseMenor * Math.sin(perpendicularAngle));
             
-            int x5 = x2 + (int) baseMayor;
-            int x6 = x2 - (int) baseMayor;
-            
-            int y3 = y1;
-            int y4 = y2;
+            double x2 = to[0] + (baseMayor * Math.cos(perpendicularAngle));
+            double y2 = to[1] + (baseMayor * Math.sin(perpendicularAngle));
 
-            vertices.add(new Point(x4, y1));
-            vertices.add(new Point(x6, y2));
-            vertices.add(new Point(x5, y4));
-            vertices.add(new Point(x3, y3));
+            // Calcular las otras dos coordenadas
+            double x3 = to[0] + (baseMayor * Math.cos(perpendicularAngle + Math.PI));
+            double y3 = to[1] + (baseMayor * Math.sin(perpendicularAngle + Math.PI));
+
+            double x4 = from[0] + (baseMenor * Math.cos(perpendicularAngle + Math.PI));
+            double y4 = from[1] + (baseMenor * Math.sin(perpendicularAngle + Math.PI));
+
+            // Redondear las coordenadas según la precisión deseada
+            double precision = 1e-6; // Puedes ajustar esto según la precisión necesaria
+            x1 = Math.round(x1 / precision) * precision;
+            y1 = Math.round(y1 / precision) * precision;
+            x2 = Math.round(x2 / precision) * precision;
+            y2 = Math.round(y2 / precision) * precision;
+            x3 = Math.round(x3 / precision) * precision;
+            y3 = Math.round(y3 / precision) * precision;
+            x4 = Math.round(x4 / precision) * precision;
+            y4 = Math.round(y4 / precision) * precision;
+
+            vertices.add(new Point((int)x1, (int)y1));
+            vertices.add(new Point((int)x2, (int)y2));
+            vertices.add(new Point((int)x3, (int)y3));
+            vertices.add(new Point((int)x4, (int)y4));
         }
-
-        return vertices;
     }
+    return vertices;
+}
+
 }
