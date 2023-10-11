@@ -23,7 +23,11 @@ public class Iceepeecee {
     private Canvas canvas;
     private boolean operationSuccess;
     private List<Photograph> photographs;
+<<<<<<< HEAD
+    
+=======
 
+>>>>>>> b137b20c67d0c10c9c02aea8efcbabadb98f040c
     /**
      * Constructs an Iceepeecee object with the specified canvas dimensions.
      * 
@@ -49,16 +53,8 @@ public class Iceepeecee {
     }
     
     public Iceepeecee(int[][][] islands, int[][][] flights) {
-        this.length = 300;
-        this.width = 300; 
-        canvas = Canvas.getCanvas(length, width);
-        canvas.setVisible(true);
+        this(300, 300);
         
-        this.islands = new HashMap<>();
-        this.flights = new HashMap<>();
-        isVisible = false;
-        operationSuccess = true;
-        ok();
         if (islands != null && flights != null) {
         
             for (int i = 0; i < islands.length; i++) {
@@ -81,8 +77,11 @@ public class Iceepeecee {
         }
     }
 
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> b137b20c67d0c10c9c02aea8efcbabadb98f040c
     /**
      * Add an island to Iceepeecee.
      * Do not repeat the color pls( •ㅅ•)
@@ -180,8 +179,7 @@ public class Iceepeecee {
             ok();
         }
     } 
-    
-    
+        
     /**
      * Get the location of an island by color.
      * 
@@ -201,7 +199,6 @@ public class Iceepeecee {
         }
     }
 
-    
     /**
      * Add a flight to Iceepeecee.
      * Do not repeat the color pls( •ㅅ•)
@@ -367,9 +364,12 @@ public class Iceepeecee {
         }
     }
 
+<<<<<<< HEAD
+=======
 
 
     
+>>>>>>> b137b20c67d0c10c9c02aea8efcbabadb98f040c
     /**
      * Capture photographs from all flights in Iceepeecee at the given angle (theta).
      * 
@@ -408,9 +408,12 @@ public class Iceepeecee {
         ok();
     }
 
+<<<<<<< HEAD
+=======
 
 
     
+>>>>>>> b137b20c67d0c10c9c02aea8efcbabadb98f040c
     /**
      * Make all elements in Iceepeecee visible, including flights, islands, and photographs.
      */
@@ -557,7 +560,6 @@ public class Iceepeecee {
         return flightLocationsArray;
     }
 
-    
     /**
      * Verifica si los vértices de la isla están dentro de los límites del canvas.
      * 
@@ -587,7 +589,11 @@ public class Iceepeecee {
         int z = coordinates[2];
         return x >= 0 && x <= length && y >= 0 && y <= width && z >= 0;
     }
+<<<<<<< HEAD
+        
+=======
     
+>>>>>>> b137b20c67d0c10c9c02aea8efcbabadb98f040c
     private String getColorForIndex(int index) {
         String[] colors = {
             "red", "green", "blue", "yellow", "purple", "cyan", "pink", "orange", "brown", "gray",

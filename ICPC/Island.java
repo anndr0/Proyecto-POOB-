@@ -139,8 +139,6 @@ public class Island {
         }
     }
     
-
-    
     /**
      * Verifica si la última operación en la simulación fue exitosa.
      *
