@@ -48,7 +48,7 @@ public class Canvas{
     private CanvasPane canvas;
     private Graphics2D graphic;
     private Color backgroundColour;
-    private Image canvasImage;
+    public Image canvasImage;
     private List <Object> objects;
     private HashMap <Object,ShapeDescription> shapes;
     
@@ -327,7 +327,7 @@ public class Canvas{
     /**
      * Redraw ell shapes currently on the Canvas.
      */
-    private void redraw(){
+    public void redraw(){
         erase();
         for(Iterator i=objects.iterator(); i.hasNext(); ) {
                        shapes.get(i.next()).draw(graphic);
@@ -393,5 +393,18 @@ public class Canvas{
         graphic.drawLine(x1, y1, x2, y2);
         canvas.repaint();
     }
+    
+public String getBackgroundColor(int x, int y) {
+        // Lógica para obtener el color de fondo en las coordenadas (x, y)
+        // Esto puede variar dependiendo de cómo almacenes los colores de fondo en tu aplicación
+        // Por ejemplo, si tienes una matriz de colores de fondo, puedes hacer algo como esto:
+        // return backgroundColors[x][y];
+
+        // Si estás utilizando una biblioteca gráfica, consulta la documentación para obtener el color en (x, y)
+        
+        // Por defecto, devuelve un color de fondo predeterminado si no se encuentra en otros casos
+        return "white"; // Cambia esto por el color de fondo predeterminado que desees
+    }
+
 }
 

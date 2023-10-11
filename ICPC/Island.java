@@ -3,6 +3,8 @@ import java.util.Map;
 import java.awt.*;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Island class represents an island with a polygon shape on the canvas.
@@ -13,7 +15,8 @@ import java.util.HashSet;
  * @version 23/09/23
  */
 public class Island {
-    private static HashMap<String, Polygon> islands = new HashMap<>();
+    private List<Point> vertices;
+    private static HashMap<String, MyPolygon> islands = new HashMap<>();
     private boolean isVisible;
     private int[][] vertexArray;
     private String color;
@@ -38,7 +41,7 @@ public class Island {
         usedColors.add(color);
         // Asigna los vértices proporcionados al miembro vertexArray
         this.vertexArray = vertexArray;
-        Polygon polygon = new Polygon(color, vertexArray); // Create a Polygon with the specified color
+        MyPolygon polygon = new MyPolygon(color, vertexArray); // Create a Polygon with the specified color
         islands.put(color, polygon); // Use the color as the key in the map
         polygon.makeVisible();
         polygon.draw();
@@ -64,7 +67,7 @@ public class Island {
      * @param color The color of the island to make visible.
      */
     public void makeIslandVisible(String color) {
-        Polygon polygon = islands.get(color);
+        MyPolygon polygon = islands.get(color);
         if (polygon != null) {
             polygon.makeVisible(); // Make the polygon of the specified island visible
         }
@@ -76,7 +79,7 @@ public class Island {
      * @param color The color of the island to make invisible.
      */
     public void makeIslandInvisible(String color) {
-        Polygon polygon = islands.get(color);
+        MyPolygon polygon = islands.get(color);
         if (polygon != null) {
             polygon.makeInvisible(); // Make the polygon of the specified island invisible
         }
@@ -88,7 +91,7 @@ public class Island {
      * @param color The color of the island to delete.
      */
     public void delIsland(String color) {
-        Polygon polygon = islands.get(color);
+        MyPolygon polygon = islands.get(color);
         if (polygon != null) {
             polygon.makeInvisible();
             islands.remove(color);
@@ -105,7 +108,7 @@ public class Island {
      * @return A string representing the location of the island.
      */
     public int[][] locationIsland(String color) {
-        Polygon polygon = islands.get(color);
+        MyPolygon polygon = islands.get(color);
         if (polygon != null) {
             return polygon.getVertexArray();
         } else {
@@ -127,9 +130,9 @@ public class Island {
      */
     public static void showIslands() {
         System.out.println("Islas almacenadas en el HashMap:");
-        for (Map.Entry<String, Polygon> entry : islands.entrySet()) {
+        for (Map.Entry<String, MyPolygon> entry : islands.entrySet()) {
             String color = entry.getKey();
-            Polygon polygon = entry.getValue();
+            MyPolygon polygon = entry.getValue();
             System.out.println("Color: " + color);
             System.out.println("Vertices: " + polygon.getVertexArray());
             System.out.println("------------------------");
@@ -188,5 +191,41 @@ public class Island {
         return point[0] >= flightVertex[0] && point[0] <= flightVertex[2] &&
                point[1] >= flightVertex[1] && point[1] <= flightVertex[3];
     }
+
+    public void drawIslandOutline(String color) {
+        MyPolygon polygon = islands.get(color);
+        Canvas canvas = Canvas.getCanvas();
+        if (polygon != null) {
+            int[][] vertices = polygon.getVertexArray();
+            int numVertices = vertices.length;
+
+            if (numVertices >= 2) {
+                for (int i = 0; i < numVertices - 1; i++) {
+                    int[] vertex1 = vertices[i];
+                    int[] vertex2 = vertices[i + 1];
+                    int x1 = vertex1[0];
+                    int y1 = vertex1[1];
+                    int x2 = vertex2[0];
+                    int y2 = vertex2[1];
+
+                    // Dibuja una línea desde vertex1 a vertex2 con color negro
+                    canvas.drawLine(x1, y1, x2, y2,"black");
+                }
+
+                // Conecta el último vértice con el primer vértice para cerrar el contorno
+                int[] firstVertex = vertices[0];
+                int[] lastVertex = vertices[numVertices - 1];
+                int x1 = firstVertex[0];
+                int y1 = firstVertex[1];
+                int x2 = lastVertex[0];
+                int y2 = lastVertex[1];
+
+                // Dibuja una línea desde el último vértice al primer vértice con color negro
+                canvas.drawLine(x1, y1, x2, y2, "black");
+            }
+        }
+    }
+    
+    
 
 }

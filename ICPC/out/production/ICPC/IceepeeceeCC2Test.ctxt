@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=IceepeeceeCC2Test
+comment0.text=\r\n\ The\ test\ class\ IceepeeceeCC2Test.\r\n\r\n\ @author\ \ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=void\ setUp()
+comment2.params=
+comment2.target=void\ tearDown()
+comment3.params=
+comment3.target=void\ TestIceepeeceeProblemF()
+comment4.params=
+comment4.target=void\ testIslands()
+comment5.params=
+comment5.target=void\ testFlights()
+comment6.params=
+comment6.target=void\ TestRegisteredIslandsInPhotographs()
+comment7.params=
+comment7.target=void\ TestFlightsWithUnnecessaryPhotographs()
+numComments=8

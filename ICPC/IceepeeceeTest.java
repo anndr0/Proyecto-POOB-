@@ -181,45 +181,5 @@ public class IceepeeceeTest {
 
     }
     // ---------------------------------------------------------------- //
-    
-    
-    // Iceepeecee(int[][][] islands, int[][][] flights) --------------------- //
-    @Test
-    public void testIceepeeceeProblemF() {
-        // Definir los vértices de las islas
-        int[][][] islands = {
-            {{20, 30}, {50, 50}, {10, 50}},
-            {{40, 20}, {60, 10}, {75, 20}, {60, 30}},
-            {{45, 60}, {55, 55}, {60, 60}, {55, 65}}
-        };
-        int[][][] flights = {
-            {{0,30,20},{78,70,5}},
-            {{55,0,20},{70,60,10}}
-        };
-        Iceepeecee iceepeecee = new Iceepeecee(islands, flights);
-        assertTrue(iceepeecee.isOperationSuccess());
-    }
-    // ----------------------------------------------------------------------- //
-    
-    @Test
-    public void testIslasContenidasEnFotografias() {
-        int[][][] islands = {
-            {{20, 30}, {50, 50}, {10, 50}},
-            {{40, 20}, {60, 10}, {75, 20}, {60, 30}},
-            {{45, 60}, {55, 55}, {60, 60}, {55, 65}}
-        };
-        int[][][] flights = {
-            {{0,30,20},{78,70,5}},
-            {{55,0,20},{70,60,10}}
-        };
-        Iceepeecee iceepeecee = new Iceepeecee(islands, flights);
-        double theta = 48.26;
-        iceepeecee.photograph(theta);
-        // Llama al método que deseas probar
-        String[] islasContenidas = iceepeecee.observedIslands();
 
-        // Realiza afirmaciones (assertions) para verificar el resultado esperado
-        // Supongamos que esperamos que algunas islas estén contenidas en las fotografías
-        assertTrue(islasContenidas.length > 0);
-    }
 }
