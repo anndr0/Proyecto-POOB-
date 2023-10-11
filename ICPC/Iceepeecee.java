@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
 /**
  * The Iceepeecee class represents an environment for managing islands, flights, and photographs.
@@ -21,8 +23,6 @@ public class Iceepeecee {
     private Canvas canvas;
     private boolean operationSuccess;
     private List<Photograph> photographs;
-    
-   
 
     /**
      * Constructs an Iceepeecee object with the specified canvas dimensions.
@@ -38,7 +38,7 @@ public class Iceepeecee {
             canvas.setVisible(true);
             this.islands = new HashMap<>();
             this.flights = new HashMap<>();
-            isVisible = false;
+            isVisible = true;
             operationSuccess = true;
             ok();
         } else {
@@ -82,7 +82,7 @@ public class Iceepeecee {
     }
 
 
-    
+
     /**
      * Add an island to Iceepeecee.
      * Do not repeat the color pls( •ㅅ•)
@@ -336,6 +336,28 @@ public class Iceepeecee {
             // Toma la nueva fotografía
             flight.camera(flightColor, theta); 
     
+            // Verifica si hay islas dentro de la fotografía
+            for (Island island : islands.values()) {
+            String islandColor = island.getColor();
+            int[][] islandVertices = getIslandVertices(islandColor);
+
+            if (islandVertices != null && islandVertices.length > 0) {
+                List<Point> islandPoints = convertToPoints(islandVertices);
+                
+                for (Flight f : flights.values()) {
+                    List<Photograph> photographs = f.getPhotographs();
+                    
+                    for (Photograph photograph : photographs) {
+                        List<Point> photographVertices = photograph.getVertices();
+
+                        if (isPolygonInsidePolygon(islandPoints, photographVertices)) {
+                            island.drawIslandOutline(islandColor);
+                        }
+                    }
+                }
+            }
+        }
+    
             operationSuccess = true;
             ok();
         } else {
@@ -345,6 +367,8 @@ public class Iceepeecee {
         }
     }
 
+
+
     
     /**
      * Capture photographs from all flights in Iceepeecee at the given angle (theta).
@@ -352,20 +376,39 @@ public class Iceepeecee {
      * @param theta The angle (in radians) at which the photographs are taken.
      */
     public void photograph(double theta) {
-        operationSuccess = true; 
-        if (theta >= 0) { 
+        operationSuccess = true;
+        if (theta >= 0) {
             for (Flight flight : flights.values()) {
-                String color = flight.getColor(); 
-                flight.camera(color, theta); 
+                String color = flight.getColor();
+                flight.camera(color, theta);
+                for (Island island : islands.values()) {
+                    String islandColor = island.getColor();
+                    int[][] islandVertices = getIslandVertices(islandColor);
+                    if (islandVertices != null && islandVertices.length > 0) {
+                        List<Point> islandPoints = convertToPoints(islandVertices);
+                        for (Flight f : flights.values()) {
+                            List<Photograph> photographs = f.getPhotographs();
+                            for (Photograph photograph : photographs) {
+                                List<Point> photographVertices = photograph.getVertices();
+                                if (isPolygonInsidePolygon(islandPoints, photographVertices)) {
+                                    island.drawIslandOutline(islandColor);
+                                }
+                            }
+                        }
+                    }
+                }
+    
                 if (flight.ok()) {
                     operationSuccess = false;
                 }
             }
         } else {
-            operationSuccess = false; 
+            operationSuccess = false;
         }
-        ok(); 
+        ok();
     }
+
+
 
     
     /**
@@ -445,7 +488,7 @@ public class Iceepeecee {
             List<Photograph> photographs = flight.getPhotographs();
             if (!photographs.isEmpty()) {
                 Photograph lastPhotograph = photographs.get(photographs.size() - 1);
-                return lastPhotograph.getTheta();
+                return lastPhotograph.getThetaDegrees();
             } else {
                 System.out.println("No photographs taken for this flight.");
             }
@@ -480,7 +523,7 @@ public class Iceepeecee {
     
         String[] islandLocationsArray = new String[islandLocations.size()];
         islandLocations.toArray(islandLocationsArray);
-    
+        
         return islandLocationsArray;
     }
 
@@ -510,7 +553,7 @@ public class Iceepeecee {
     
         String[] flightLocationsArray = new String[flightLocations.size()];
         flightLocations.toArray(flightLocationsArray);
-    
+        System.out.println(flightLocations);
         return flightLocationsArray;
     }
 
@@ -544,9 +587,6 @@ public class Iceepeecee {
         int z = coordinates[2];
         return x >= 0 && x <= length && y >= 0 && y <= width && z >= 0;
     }
-    
-
-
     
     private String getColorForIndex(int index) {
         String[] colors = {
@@ -602,10 +642,10 @@ public class Iceepeecee {
      * Finaliza la simulación y cierra el lienzo gráfico.
      */
     public void finish() {
-        Canvas canvas = Canvas.getCanvas(); // Obtiene la instancia del lienzo gráfico
+        Canvas canvas = Canvas.getCanvas();
         if (canvas != null) {
-            canvas.setVisible(false); // Oculta el lienzo gráfico
-            canvas = null; // Establece el lienzo en null para liberar recursos
+            canvas.setVisible(false);
+            canvas = null;
             System.out.println("Simulación finalizada.");
         }
     }
@@ -615,46 +655,73 @@ public class Iceepeecee {
         if (island != null) {
             return island.getVertexArray();
         }
-        return null; // Otra opción es devolver una matriz vacía en lugar de null si lo prefieres
+        return null;
     }
 
-public String[] observedIslands() {
-    List<String> islasContenidas = new ArrayList<>();
-    
-    // Itera a través de todas las islas
-    for (Island island : islands.values()) {
-        String islandColor = island.getColor();
-        int[][] islandVertices = getIslandVertices(islandColor);
+    public String[] observedIslands() {
+        List<String> observedIslandsList = new ArrayList<>();
         
-        // Verifica si la isla tiene vértices antes de continuar
-        if (islandVertices != null && islandVertices.length > 0) {
-            // Convierte los vértices de la isla en una lista de puntos
-            List<Point> islandPoints = convertToPoints(islandVertices);
-            
-            // Itera a través de todas las fotografías
-            for (Flight flight : flights.values()) {
-                List<Photograph> photographs = flight.getPhotographs();
+        for (Island island : islands.values()) {
+            String islandColor = island.getColor();
+            int[][] islandVertices = getIslandVertices(islandColor);
+
+            if (islandVertices != null && islandVertices.length > 0) {
+                List<Point> islandPoints = convertToPoints(islandVertices);
                 
-                for (Photograph photograph : photographs) {
-                    List<Point> photographVertices = photograph.getVertices();
+                for (Flight flight : flights.values()) {
+                    List<Photograph> photographs = flight.getPhotographs();
                     
-                    // Verifica si la isla está completamente contenida en la fotografía
-                    if (isPolygonInsidePolygon(islandPoints, photographVertices)) {
-                        islasContenidas.add(islandColor);
-                        break; // Puedes omitir la búsqueda en otras fotografías
+                    for (Photograph photograph : photographs) {
+                        List<Point> photographVertices = photograph.getVertices();
+
+                        if (isPolygonInsidePolygon(islandPoints, photographVertices)) {
+                            observedIslandsList.add(islandColor);
+                            break;
+                        }
                     }
                 }
             }
         }
+        
+        // Convierte la lista de islas contenidas en un arreglo de String
+        String[] observedIslands = observedIslandsList.toArray(new String[0]);
+        
+        return observedIslands;
     }
-    
-    // Convierte la lista de islas contenidas en un arreglo de String
-    String[] islasContenidasArray = islasContenidas.toArray(new String[0]);
-    
-    return islasContenidasArray;
-}
 
-
+    public String[] uselessFlights() {
+        List<String> uselessFlightList = new ArrayList<>();
+        
+        for (Flight flight : flights.values()) {
+            List<Photograph> photographs = flight.getPhotographs();
+            boolean hasIsland = false;
+    
+            for (Photograph photograph : photographs) {
+                List<Point> photographVertices = photograph.getVertices();
+                for (Island island : islands.values()) {
+                    String islandColor = island.getColor();
+                    int[][] islandVertices = getIslandVertices(islandColor);
+    
+                    if (isPolygonInsidePolygon(convertToPoints(islandVertices), photographVertices)) {
+                        hasIsland = true;
+                        break;
+                    }
+                }
+    
+                if (hasIsland) {
+                    break; 
+                }
+            }
+    
+            if (!hasIsland) {
+                uselessFlightList.add(flight.getColor());
+            }
+        }
+    
+        // Convierte la lista de vuelos inútiles en un arreglo de String
+        String[] uselessFlightsArray = uselessFlightList.toArray(new String[0]);
+        return uselessFlightsArray;
+    }
     
     /**
      * Convierte una matriz de vértices en una lista de puntos.
@@ -717,8 +784,9 @@ public String[] observedIslands() {
             }
             p1 = p2;
         }
-    
         return intersectCount % 2 != 0;
     }
-
+    
+    
+    
 }

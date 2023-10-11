@@ -86,6 +86,24 @@ public class Flight {
         color = newColor;
     }
     
+    // En el método getPhotographVertices de la clase Flight
+    public int[][] getPhotographVertices() {
+        if (!photographs.isEmpty()) {
+            Photograph lastPhotograph = photographs.get(photographs.size() - 1);
+            List<Point> points = lastPhotograph.getVertices();
+            int[][] vertices = new int[points.size()][2];
+    
+            for (int i = 0; i < points.size(); i++) {
+                Point point = points.get(i);
+                vertices[i][0] = (int) point.getX();
+                vertices[i][1] = (int) point.getY();
+            }
+    
+            return vertices;
+        }
+        return null;
+    }
+
     /**
      * Make the flight visible by its color.
      * 
