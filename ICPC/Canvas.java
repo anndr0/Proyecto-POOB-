@@ -145,7 +145,13 @@ public class Canvas{
         else
             graphic.setColor(Color.black);
     }
- 
+    
+    /**
+     * Sets the foreground color with the specified color string and alpha transparency.
+     *
+     * @param colorString The color string (e.g., "red", "green") to set as the foreground color.
+     * @param alpha       The alpha transparency value (0-255) to adjust the color opacity.
+     */
     public void setForegroundColor(String colorString, int alpha) {
         Color color;
         switch (colorString) {
@@ -380,6 +386,15 @@ public class Canvas{
         }
     }
     
+    /**
+     * Draws a line with the specified coordinates and color on the canvas.
+     *
+     * @param x1     The x-coordinate of the starting point of the line.
+     * @param y1     The y-coordinate of the starting point of the line.
+     * @param x2     The x-coordinate of the ending point of the line.
+     * @param y2     The y-coordinate of the ending point of the line.
+     * @param color  The color of the line.
+     */
     public void drawLine(int x1, int y1, int x2, int y2, String color) {
         setForegroundColor(color);
     
@@ -392,18 +407,6 @@ public class Canvas{
         // Dibujar la línea
         graphic.drawLine(x1, y1, x2, y2);
         canvas.repaint();
-    }
-    
-public String getBackgroundColor(int x, int y) {
-        // Lógica para obtener el color de fondo en las coordenadas (x, y)
-        // Esto puede variar dependiendo de cómo almacenes los colores de fondo en tu aplicación
-        // Por ejemplo, si tienes una matriz de colores de fondo, puedes hacer algo como esto:
-        // return backgroundColors[x][y];
-
-        // Si estás utilizando una biblioteca gráfica, consulta la documentación para obtener el color en (x, y)
-        
-        // Por defecto, devuelve un color de fondo predeterminado si no se encuentra en otros casos
-        return "white"; // Cambia esto por el color de fondo predeterminado que desees
     }
 
 }

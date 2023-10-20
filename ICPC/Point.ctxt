@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.target=Point
+comment0.text=\r\n\ The\ Point\ class\ represents\ a\ 2D\ point\ with\ x\ and\ y\ coordinates.\r\n\ @author\ Ana\ Mar\u00EDa\ Dur\u00E1n\ And\ Laura\ Natalia\ Rojas\r\n\ @version\ 23/03/23\r\n
 comment1.params=x\ y
 comment1.target=Point(int,\ int)
+comment1.text=\r\n\ Constructs\ a\ new\ Point\ object\ with\ the\ specified\ x\ and\ y\ coordinates.\r\n\r\n\ @param\ x\ The\ x-coordinate\ of\ the\ point.\r\n\ @param\ y\ The\ y-coordinate\ of\ the\ point.\r\n
 comment2.params=
 comment2.target=int\ getX()
+comment2.text=\r\n\ Gets\ the\ x-coordinate\ of\ the\ point.\r\n\r\n\ @return\ The\ x-coordinate\ of\ the\ point.\r\n
 comment3.params=
 comment3.target=int\ getY()
+comment3.text=\r\n\ Gets\ the\ y-coordinate\ of\ the\ point.\r\n\r\n\ @return\ The\ y-coordinate\ of\ the\ point.\r\n
 numComments=4

@@ -1,7 +1,10 @@
 #BlueJ class context
 comment0.target=IceepeeceeContest
+comment0.text=\r\n\ The\ IceepeeceeContest\ class\ provides\ methods\ for\ solving\ and\ simulate\ Iceepeecee\ marathon\ problem.\r\n\ @author\ Ana\ Mar\u00EDa\ Dur\u00E1n\ And\ Laura\ Natalia\ Rojas\r\n\ @version\ 23/03/23\r\n
 comment1.params=islands\ flights
 comment1.target=double\ solve(int[][][],\ int[][][])
+comment1.text=\r\n\ Solves\ an\ Iceepeecee\ challenge\ using\ given\ islands\ and\ flights\ data.\r\n\r\n\ @param\ islands\ An\ array\ of\ islands\ represented\ as\ three-dimensional\ coordinates.\r\n\ @param\ flights\ An\ array\ of\ flights\ represented\ as\ coordinates\ of\ starting\ and\ ending\ points.\r\n\ @return\ The\ calculated\ solution\ for\ the\ challenge\ as\ an\ angle\ in\ degrees.\r\n\ @throws\ IceepeeceeException\ If\ an\ exception\ related\ to\ Iceepeecee\ operations\ occurs.\r\n
 comment2.params=islands\ flights
 comment2.target=void\ simulate(int[][][],\ int[][][])
+comment2.text=\r\n\ Simulates\ an\ Iceepeecee\ challenge\ using\ given\ islands\ and\ flights\ data.\r\n\r\n\ @param\ islands\ An\ array\ of\ islands\ represented\ as\ three-dimensional\ coordinates.\r\n\ @param\ flights\ An\ array\ of\ flights\ represented\ as\ coordinates\ of\ starting\ and\ ending\ points.\r\n\ @throws\ IceepeeceeException\ If\ an\ exception\ related\ to\ Iceepeecee\ operations\ occurs.\r\n
 numComments=3

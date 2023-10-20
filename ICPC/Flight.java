@@ -10,8 +10,8 @@ import java.util.HashSet;
  * Flights can be created, displayed, and manipulated.
  * They can be made visible or invisible, and photographs can be taken during flights.
  * 
- * @author [Your Name]
- * @version [Date]
+ * @author Ana María Durán And Laura Natalia Rojas
+ * @version 23/03/23
  */
 
 public class Flight {
@@ -48,6 +48,11 @@ public class Flight {
         makeFlightInvisible(color);
     }
     
+    /**
+     * Checks if the simulation is currently in a visible state.
+     *
+     * @return true if the simulation is visible, false if it's hidden.
+     */
     public boolean isVisible(){
         return isVisible;
     }
@@ -88,7 +93,11 @@ public class Flight {
         color = newColor;
     }
     
-    // En el método getPhotographVertices de la clase Flight
+    /**
+     * Retrieves the vertices of the latest photograph taken by the flight.
+     *
+     * @return A 2D integer array representing the vertices of the photograph, or null if no photographs are available.
+     */
     public int[][] getPhotographVertices() {
         if (!photographs.isEmpty()) {
             Photograph lastPhotograph = photographs.get(photographs.size() - 1);
@@ -243,13 +252,14 @@ public class Flight {
     }
     
     /**
-     * Verifica si la última operación en la simulación fue exitosa.
+     * Checks if the last operation in the simulation was successful.
      *
-     * @return true si la última operación fue exitosa, false si no lo fue.
+     * @return true if the last operation was successful, false if it was not.
      */
     public boolean ok() {
         return operationSuccess;
     }
+
     
     /**
      * Get the angle (theta) of the last photograph taken by the flight.
@@ -267,20 +277,16 @@ public class Flight {
                 return lastPhotograph.getTheta();
             }
         }
-        // Devolver un valor predeterminado (puedes cambiarlo según tus necesidades)
         return 0.0;
     }
     
-        /**
-     * Imprime la información de todas las fotografías tomadas durante el vuelo.
+    /**
+     * Prints information about all the photographs taken during the flight.
      */
-    public void printPhotographs() {
+    private void printPhotographs() {
         System.out.println("Fotografías tomadas durante el vuelo de color " + color + ":");
         for (Photograph photograph : photographs) {
             System.out.println("Ángulo (theta): " + photograph.getTheta());
-            // Aquí puedes agregar más información sobre la fotografía si es necesario
         }
     }
-
-    
 }

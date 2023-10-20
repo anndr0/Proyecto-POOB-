@@ -34,10 +34,13 @@ public class Iceepeecee {
         if (length > 0 && width > 0) {
             this.length = length; // Inicializa la longitud del canvas
             this.width = width;   // Inicializa el ancho del canvas
+            
             canvas = Canvas.getCanvas(length, width);
             canvas.setVisible(true);
+            
             this.islands = new HashMap<>();
             this.flights = new HashMap<>();
+            
             isVisible = false;
             operationSuccess = true;
             ok();
@@ -48,6 +51,13 @@ public class Iceepeecee {
         }
     }
     
+    /**
+     * Constructs an instance of the Iceepeecee simulator with specified islands and flights data.
+     *
+     * @param islands An array representing the islands with their three-dimensional coordinates.
+     * @param flights An array representing the flights with coordinates of starting and ending points.
+     * @throws IceepeeceeException If an exception related to Iceepeecee operations occurs during initialization.
+     */
     public Iceepeecee(int[][][] islands, int[][][] flights) throws IceepeeceeException {
         this.length = 300;
         this.width = 300;
@@ -85,9 +95,6 @@ public class Iceepeecee {
         }
     }
 
-
-
-
     /**
      * Add an island to Iceepeecee.
      * Do not repeat the color pls( •ㅅ•)
@@ -123,11 +130,17 @@ public class Iceepeecee {
      * @param color The color of the island to retrieve.
      * @return The Island object with the specified color, or null if not found.
      */
-    public Island getIsland(String color) {
+    private Island getIsland(String color) {
         return islands.get(color);
     }
     
-    public Flight getFlight(String color) {
+    /**
+     * Retrieves the flight object associated with the specified color.
+     *
+     * @param color The color identifier of the flight.
+     * @return The Flight object corresponding to the provided color, or null if not found.
+     */
+    private Flight getFlight(String color) {
         return flights.get(color);
     }
     
@@ -278,12 +291,12 @@ public class Iceepeecee {
         }
     }
     
-        /**
+    /**
      * Make the flight visible by its color.
      * 
      * @param color The color of the flight to make visible.
      */
-    public void makeFlightVisible(String color) {
+    private void makeFlightVisible(String color) {
         Flight flight = flights.get(color);
         if (flight != null) {
             flight.isVisible = true;
@@ -305,7 +318,7 @@ public class Iceepeecee {
      * 
      * @param color The color of the flight to make invisible.
      */
-    public void makeFlightInvisible(String color) {
+    private void makeFlightInvisible(String color) {
         Flight flight = flights.get(color);
         if (flight != null) {
             flight.isVisible = false;
@@ -414,7 +427,8 @@ public class Iceepeecee {
 
     
     /**
-     * Make all elements in Iceepeecee visible, including flights, islands, and photographs.
+     * Makes flights, islands, and photographs visible within the Iceepeecee simulation.
+     * If any operation is successful during the process, it sets the operationSuccess flag to true.
      */
     public void makeVisible() {
         operationSuccess = false;
@@ -446,12 +460,12 @@ public class Iceepeecee {
                 }
             }
         }
-        
         //ok();
     }
 
-/**
-     * Make all elements in Iceepeecee invisible, including flights, islands, and photographs.
+    /**
+     * Makes flights, islands, and photographs invisible within the Iceepeecee simulation.
+     * If any operation is successful during the process, it sets the operationSuccess flag to true.
      */
     public void makeInvisible() {
         operationSuccess = false;
@@ -485,7 +499,12 @@ public class Iceepeecee {
     }
 
 
-    
+    /**
+     * Retrieves the angle (theta) in degrees of the most recent photograph taken by a specific flight of the given color.
+     *
+     * @param color The color of the flight for which the photograph angle is requested.
+     * @return The angle in degrees (theta) of the most recent photograph taken by the flight. If no photographs exist or the flight is not found, it returns 0.0.
+     */
     public double flightCamera(String color) {
         Flight flight = flights.get(color); 
         if (flight != null) {
@@ -503,7 +522,9 @@ public class Iceepeecee {
     }
     
     /**
-     * Muestra la información de todas las islas almacenadas en Iceepeecee.
+     * Retrieves information about all the islands stored in Iceepeecee.
+     *
+     * @return An array of strings representing the colors of all stored islands.
      */
     public String[] islands() {
         List<String> islandColors = new ArrayList<>();
@@ -521,40 +542,29 @@ public class Iceepeecee {
 
     
     /**
-     * Muestra la información de todos los vuelos almacenados en Iceepeecee.
+     * Retrieves information about all the flights stored in Iceepeecee.
+     *
+     * @return An array of strings representing the colors of all stored flights.
      */
     public String[] flights() {
-        List<String> flightLocations = new ArrayList<>();
+        List<String> flightInfo = new ArrayList<>();
     
         for (Flight flight : flights.values()) {
             String color = flight.getColor();
-            int[][] location = flight.locationFlight(color);
-    
-            if (location != null) {
-                StringBuilder locationString = new StringBuilder("Color: " + color + " Location: [");
-                for (int i = 0; i < location.length; i++) {
-                    locationString.append("[").append(location[i][0]).append(", ").append(location[i][1]).append(", ").append(location[i][2]).append("]");
-                    if (i < location.length - 1) {
-                        locationString.append(", ");
-                    }
-                }
-                locationString.append("] ");
-                flightLocations.add(locationString.toString());
-            }
+            flightInfo.add(color);
         }
     
-        String[] flightLocationsArray = new String[flightLocations.size()];
-        flightLocations.toArray(flightLocationsArray);
-        System.out.println(flightLocations);
+        String[] flightLocationsArray = new String[flightInfo.size()];
+        flightInfo.toArray(flightLocationsArray);
         return flightLocationsArray;
     }
 
     
     /**
-     * Verifica si los vértices de la isla están dentro de los límites del canvas.
-     * 
+     * Checks if the island's vertices are within the canvas boundaries.
+     *
      * @param vertexArray The vertices of the island.
-     * @return true si los vértices están dentro del canvas, false en caso contrario.
+     * @return true if the vertices are within the canvas boundaries, false otherwise.
      */
     private boolean isWithinCanvasBounds(int[][] vertexArray) {
         for (int[] vertex : vertexArray) {
@@ -567,11 +577,11 @@ public class Iceepeecee {
         return true;
     }
     
-        /**
-     * Verifica si un conjunto de coordenadas está dentro de los límites del canvas.
+    /**
+     * Checks if a set of coordinates is within the canvas boundaries.
      *
-     * @param coordinates Las coordenadas a verificar [x, y, z].
-     * @return true si las coordenadas están dentro del canvas, false si no lo están.
+     * @param coordinates The coordinates to verify [x, y, z].
+     * @return true if the coordinates are within the canvas, false otherwise.
      */
     private boolean isWithinCanvasBounds(int[] coordinates) {
         int x = coordinates[0];
@@ -580,10 +590,16 @@ public class Iceepeecee {
         return x >= 0 && x <= length && y >= 0 && y <= width && z >= 0;
     }
     
+    /**
+     * Retrieves a color based on the provided index.
+     *
+     * @param index The index used to select a color.
+     * @return The color corresponding to the given index or "black" if the index is out of range.
+     */
     private String getColorForIndex(int index) {
         String[] colors = {
-            "red", "green", "blue", "yellow", "purple", "cyan", "pink", "orange", "brown", "gray",
-            "magenta", "white", "lightBlue", "lime", "gold", "teal", "violet", "coral", "lavender", "olive",
+            "red", "green", "coral", "coral", "purple", "cyan", "pink", "orange", "brown", "gray",
+            "magenta", "white", "lightBlue", "lime", "gold", "teal", "violet", "yellow", "lavender", "olive",
             "maroon", "turquoise", "navyBlue", "bistre", "navy blue", "burgundy", "crimson", "lightCyan",
             "cobalt", "fuchsia", "garnet", "lightGray", "darkGray", "indigo", "lightLilac", "lightLime",
             "lightMagenta", "lightBrown", "darkBrown", "lightOrange", "darkOrange", "lightGold", "darkGold",
@@ -598,51 +614,62 @@ public class Iceepeecee {
     }
     
     /**
-     * Muestra una ventana de diálogo con un mensaje informativo.
-     * 
-     * @param message El mensaje informativo a mostrar.
+     * Displays an information message in a dialog window.
+     *
+     * @param message The informative message to display.
      */
     private void showInfoMessage(String message) {
-        JOptionPane.showMessageDialog(null, message, "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(null, message, "Information", JOptionPane.INFORMATION_MESSAGE);
     }
     
     /**
-     * Muestra una ventana de diálogo con un mensaje de error.
-     * 
-     * @param message El mensaje de error a mostrar.
+     * Displays an error message in a dialog window.
+     *
+     * @param message The error message to display.
      */
     private void showErrorMessage(String message) {
         JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
-
+    
     /**
-     * Verifica si la última operación en la simulación fue exitosa.
+     * Checks if the last operation in the simulation was successful.
      */
     public void ok() {
         if (operationSuccess) {
-            showInfoMessage("Operación exitosa.");
+            showInfoMessage("Operation successful.");
         } else {
-            showErrorMessage("Operación no exitosa.");
+            showErrorMessage("Operation not successful.");
         }
     }
     
+    /**
+     * Checks if the last operation in the simulation was successful.
+     *
+     * @return true if the last operation was successful, false otherwise.
+     */
     public boolean isOperationSuccess() {
         return operationSuccess;
     }
     
     /**
-     * Finaliza la simulación y cierra el lienzo gráfico.
+     * Finishes the simulation and closes the graphic canvas.
      */
     public void finish() {
         Canvas canvas = Canvas.getCanvas();
         if (canvas != null) {
             canvas.setVisible(false);
             canvas = null;
-            System.out.println("Simulación finalizada.");
+            System.out.println("Simulation finished.");
         }
     }
     
-    public int[][] getIslandVertices(String islandColor) {
+    /**
+     * Retrieves the vertices of an island given its color.
+     *
+     * @param islandColor The color of the island.
+     * @return The array of vertices for the specified island, or null if the island is not found.
+     */
+    private int[][] getIslandVertices(String islandColor) {
         Island island = islands.get(islandColor);
         if (island != null) {
             return island.getVertexArray();
@@ -650,6 +677,11 @@ public class Iceepeecee {
         return null;
     }
 
+    /**
+     * Retrieves the colors of islands that have been observed by one or more flight photographs.
+     *
+     * @return An array of strings representing the colors of observed islands.
+     */
     public String[] observedIslands() {
         List<String> observedIslandsList = new ArrayList<>();
         
@@ -679,36 +711,12 @@ public class Iceepeecee {
         String[] observedIslands = observedIslandsList.toArray(new String[0]);
         return observedIslands;
     }
-    
-    /*public List<int[][]> ObservedIslandVertices() {
-        List<int[][]> observedVerticesList = new ArrayList<>();
-    
-        for (Island island : islands.values()) {
-            String islandColor = island.getColor();
-            int[][] islandVertices = getIslandVertices(islandColor);
-    
-            if (islandVertices != null && islandVertices.length > 0) {
-                List<Point> islandPoints = convertToPoints(islandVertices);
-    
-                for (Flight flight : flights.values()) {
-                    List<Photograph> photographs = flight.getPhotographs();
-    
-                    for (Photograph photograph : photographs) {
-                        List<Point> photographVertices = photograph.getVertices();
-    
-                        if (isPolygonInsidePolygon(islandPoints, photographVertices)) {
-                            observedVerticesList.add(islandVertices);
-                            break;
-                        }
-                    }
-                }
-            }
-        }
-    
-        return observedVerticesList;
-    }*/
 
-
+    /**
+     * Retrieves the colors of flights that did not capture any information about the islands.
+     *
+     * @return An array of strings representing the colors of useless flights.
+     */
     public String[] uselessFlights() {
         List<String> uselessFlightList = new ArrayList<>();
         
@@ -744,10 +752,10 @@ public class Iceepeecee {
     }
     
     /**
-     * Convierte una matriz de vértices en una lista de puntos.
+     * Converts an array of vertices to a list of points.
      * 
-     * @param vertices La matriz de vértices.
-     * @return Una lista de puntos.
+     * @param vertices The vertex matrix.
+     * @return A list of points.
      */
     private List<Point> convertToPoints(int[][] vertices) {
         List<Point> points = new ArrayList<>();
@@ -760,11 +768,11 @@ public class Iceepeecee {
     }
     
     /**
-     * Verifica si un polígono está completamente contenido dentro de otro polígono.
+     * Checks if a polygon is completely contained within another polygon.
      * 
-     * @param innerPolygon Los vértices del polígono interno.
-     * @param outerPolygon Los vértices del polígono externo.
-     * @return true si el polígono interno está completamente contenido en el externo, false en caso contrario.
+     * @param innerPolygon The vertices of the internal polygon.
+     * @param outerPolygon The vertices of the external polygon.
+     * @return true if the inner polygon is completely contained in the outer one, false otherwise.
      */
     private boolean isPolygonInsidePolygon(List<Point> innerPolygon, List<Point> outerPolygon) {
         for (Point point : innerPolygon) {
@@ -776,12 +784,13 @@ public class Iceepeecee {
     }
     
     /**
-     * Verifica si un punto dado está dentro de un polígono representado por una lista de vértices.
-     * 
-     * @param point   El punto a verificar como un objeto Point.
-     * @param vertices La lista de vértices del polígono.
-     * @return true si el punto está dentro del polígono, false en caso contrario.
+     * Checks if a given point is inside a polygon represented by a list of vertices.
+     *
+     * @param point     The point to be checked as a Point object.
+     * @param vertices  The list of vertices of the polygon.
+     * @return true if the point is inside the polygon, false otherwise.
      */
+
     private static boolean isPointInsidePolygon(Point point, List<Point> vertices) {
         int intersectCount = 0;
         double x1, x2, y1, y2;
@@ -808,11 +817,11 @@ public class Iceepeecee {
     }
     
     /**
-     * Obtiene una lista de todos los vértices de las islas en Iceepeecee.
+     * Retrieves a list of all the vertices of the islands in Iceepeecee.
      *
-     * @return Una lista de matrices de vértices de las islas.
+     * @return A list of arrays of island vertices.
      */
-    public List<int[][]> getAllIslandVertices() {
+    private List<int[][]> getAllIslandVertices() {
         List<int[][]> allVertices = new ArrayList<>();
     
         for (Island island : islands.values()) {
@@ -821,5 +830,4 @@ public class Iceepeecee {
         }
         return allVertices;
     }
-
 }

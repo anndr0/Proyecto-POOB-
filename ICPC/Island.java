@@ -48,6 +48,11 @@ public class Island {
         operationSuccess = true;
     }
     
+    /**
+     * Checks if the simulation is currently in a visible state.
+     *
+     * @return true if the simulation is visible, false if it's hidden.
+     */
     public boolean isVisible(){
         return isVisible;
     }
@@ -128,7 +133,7 @@ public class Island {
     }
     
     /**
-     * Muestra las islas almacenadas en el HashMap, incluyendo su color y vértices.
+     * Displays the islands stored in the HashMap, including their color and vertices.
      */
     private static void showIslands() {
         System.out.println("Islas almacenadas en el HashMap:");
@@ -140,13 +145,12 @@ public class Island {
             System.out.println("------------------------");
         }
     }
-    
-
-    
+        
     /**
-     * Verifica si la última operación en la simulación fue exitosa.
+     * Checks if the island is completely within the specified flight.
      *
-     * @return true if the last operation was success, false if it was not.
+     * @param flight The flight to be checked.
+     * @return true if the island is completely within the flight, false otherwise.
      */
     public boolean ok() {
         // Verifica si la última operación fue exitosa.
@@ -155,10 +159,10 @@ public class Island {
     
     
     /**
-     * Verifica si la isla está completamente dentro del vuelo especificado.
+     * Checks if the island is entirely within the specified flight.
      *
-     * @param flight El vuelo que se va a verificar.
-     * @return true si la isla está completamente dentro del vuelo, false en caso contrario.
+     * @param flight The flight to be verified.
+     * @return true if the island is entirely within the flight, false otherwise.
      */
     private boolean isCompletelyInsideFlight(Flight flight) {
         if (flight != null) {
@@ -184,18 +188,24 @@ public class Island {
     }
 
     /**
-     * Verifica si un punto (coordenadas) está dentro del vuelo.
+     * Checks if a point (coordinates) is inside the flight.
      *
-     * @param point      Las coordenadas del punto a verificar.
-     * @param flightVertex Los vértices del vuelo.
-     * @return true si el punto está dentro del vuelo, false en caso contrario.
+     * @param point      The coordinates of the point to be verified.
+     * @param flightVertex The vertices of the flight.
+     * @return true if the point is inside the flight, false otherwise.
      */
+
     private boolean isInsideFlight(int[] point, int[] flightVertex) {
         // Verifica si el punto (coordenadas) está dentro del vuelo (vértices del vuelo)
         return point[0] >= flightVertex[0] && point[0] <= flightVertex[2] &&
                point[1] >= flightVertex[1] && point[1] <= flightVertex[3];
     }
-
+    
+    /**
+     * Draws the outline of the island with the specified color.
+     *
+     * @param color The color of the island whose outline will be drawn.
+     */
     public void drawOutline(String color) {
         if (isVisible) {
             MyPolygon polygon = islands.get(color);
@@ -221,8 +231,4 @@ public class Island {
             }
         }
     }
-
-
-
-
 }

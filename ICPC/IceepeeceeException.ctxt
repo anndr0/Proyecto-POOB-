@@ -1,5 +1,7 @@
 #BlueJ class context
 comment0.target=IceepeeceeException
+comment0.text=\r\n\ This\ custom\ exception\ is\ used\ to\ handle\ specific\ errors\ related\ to\ the\ Iceepeecee\ class.\r\n\ It\ can\ be\ thrown\ when\ exceptional\ conditions\ occur\ during\ the\ execution\ of\ methods\ in\ the\ Iceepeecee\ class.\r\n\ \r\n\ @author\ Ana\ Mar\u00EDa\ Dur\u00E1n\ And\ Laura\ Natalia\ Rojas\r\n\ @version\ 23/03/23\r\n
 comment1.params=message
 comment1.target=IceepeeceeException(java.lang.String)
+comment1.text=\r\n\ Constructor\ for\ the\ IceepeeceeException.\r\n\r\n\ @param\ message\ The\ error\ message\ describing\ the\ reason\ for\ the\ exception.\r\n
 numComments=2
