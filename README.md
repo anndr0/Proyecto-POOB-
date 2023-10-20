@@ -25,7 +25,7 @@ EXTENSIBILIDAD.
 
 -----
 ## TERCER CICLO (̶◉͛‿◉̶)
-REFACTORING Y EXTENSIÓN.
- 13. Debe solucionar el problema de la maratón ✅
- 14. Debe simular la solución ✅
+### REFACTORING Y EXTENSIÓN.
+13. Debe solucionar el problema de la maratón ✅
+14. Debe simular la solución ✅
 
