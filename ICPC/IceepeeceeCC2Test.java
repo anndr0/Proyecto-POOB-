@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * The test class IceepeeceeCC2Test.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author Ana María Durán And Laura Natalia Rojas
+ * @version 23/03/23
  */
 public class IceepeeceeCC2Test
 {

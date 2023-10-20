@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test;
 /**
  * The test class PruebasAceptacion.
  *
- * @author  (your name)
- * @version (a version number or a date)
+ * @author Ana María Durán And Laura Natalia Rojas
+ * @version 23/03/23
  */
 public class PruebasAceptacion
 {
@@ -31,7 +31,7 @@ public class PruebasAceptacion
                 {{55,0,20},{70,60,10}}
             };
             Iceepeecee iceepeeceeDR = new Iceepeecee(islands, flights);
-            
+            iceepeeceeDR.makeInvisible();
             // En su recorrido, los vuelos toman las siguientes fotos
             double theta = 48.031693036;
             iceepeeceeDR.photograph(theta);
@@ -84,15 +84,21 @@ public class PruebasAceptacion
              * Con estos datos, se creó un objeto Iceepeecee que representa el sistema de control de vuelos y fotografía.
              */
             Iceepeecee iceepeeceeDR = new Iceepeecee(islands, flights);
-            
+            //iceepeeceeDR.makeInvisible();
             /*
              * A medida que los vuelos realizaban su recorrido, tomaban fotografías a lo largo del trayecto. 
              * El presidente quería saber el ángulo en el que se tomaron algunas de las fotografías, 
              * por lo que llamó al método flightCamera(color) pasando el color del vuelo del cual quería obtener la información.
              */
-            String flightColor = "blue"; // Supongamos que se quiere el ángulo de la foto del vuelo azul.
-            double theta = iceepeeceeDR.flightCamera(flightColor);
-    
+            String flightColor = "red"; // Supongamos que se quiere el ángulo de la foto del vuelo azul.
+            
+            double theta = 48.3;
+            iceepeeceeDR.photograph(theta);
+            double theta1 = 48.4;
+            iceepeeceeDR.photograph(theta1);
+            double thetaFC = iceepeeceeDR.flightCamera(flightColor);
+            iceepeeceeDR.makeInvisible();
+            iceepeeceeDR.photograph(thetaFC);
             
             /*
              * Después de haber tomado las fotos, el presidente deseaba identificar cuáles islas fueron observadas. 

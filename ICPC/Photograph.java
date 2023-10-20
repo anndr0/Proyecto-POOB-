@@ -186,7 +186,7 @@ public class Photograph {
             double x4 = from[0] + (baseMenor * Math.cos(perpendicularAngle + Math.PI));
             double y4 = from[1] + (baseMenor * Math.sin(perpendicularAngle + Math.PI));
 
-            double precision = 1e-1; 
+            double precision = 1e0; 
             x1 = Math.round(x1 / precision) * precision;
             y1 = Math.round(y1 / precision) * precision;
             x2 = Math.round(x2 / precision) * precision;
@@ -203,5 +203,4 @@ public class Photograph {
         }
         return vertices;
     }
-
 }

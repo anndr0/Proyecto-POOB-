@@ -7,6 +7,7 @@ import java.util.*;
 public class IceepeeceeContest {
     private double theta;
     private static Iceepeecee iceepeecee;
+    private Canvas canvas;
     static final double PI = 2 * Math.acos(0);
     
     /**
@@ -66,20 +67,21 @@ public class IceepeeceeContest {
      */
     public static void simulate(int[][][] islands, int[][][] flights) throws IceepeeceeException {
         try {
-            Iceepeecee iceepeecee = new Iceepeecee(islands, flights);
+            Iceepeecee iceepeeceeSimulate = new Iceepeecee(islands, flights);
             String[] allIslands = new String[islands.length];
             String[] temporal = new String[islands.length];
-            allIslands = iceepeecee.islands();
+            allIslands = iceepeeceeSimulate.islands();
             Arrays.sort(allIslands);
             double lo = 0.0;
             double hi = 90;
             double best = -1;
             for (int rep = 0; rep < 64; rep++) {
                 double th = (hi + lo) / 2;
-                iceepeecee.makeInvisible();
-                iceepeecee.photograph(th);
-                iceepeecee.makeVisible();
-                temporal = iceepeecee.observedIslands();
+                iceepeeceeSimulate.makeInvisible();
+                iceepeeceeSimulate.makeVisible();
+                iceepeeceeSimulate.photograph(th);
+                
+                temporal = iceepeeceeSimulate.observedIslands();
                 Arrays.sort(temporal);
 
                 boolean areEqual = Arrays.equals(allIslands, temporal);
@@ -92,12 +94,14 @@ public class IceepeeceeContest {
             }
 
             if (best == -1) {
-                iceepeecee.makeInvisible();
+                iceepeeceeSimulate.makeInvisible();
             } else {
-                iceepeecee.makeInvisible();
-                iceepeecee.makeVisible();
-                iceepeecee.photograph(best);
+                iceepeeceeSimulate.makeInvisible();
+                iceepeeceeSimulate.makeVisible();
+                iceepeeceeSimulate.photograph(best);
             }
+ 
+            iceepeeceeSimulate.finish();
         } catch (IceepeeceeException e) {
             throw e; // Relanza la excepción para su manejo en un nivel superior
         }

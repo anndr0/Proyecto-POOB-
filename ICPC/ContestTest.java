@@ -1,6 +1,12 @@
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+/**
+ * The test class ContestTest.
+ *
+ * @author Ana María Durán And Laura Natalia Rojas
+ * @version 23/03/23
+ */
 public class ContestTest {
 
     @Test
@@ -43,7 +49,6 @@ public class ContestTest {
                 {{0,30,20},{78,70,5}},
                 {{55,0,20},{70,60,10}}
             };
-    
             IceepeeceeContest.simulate(islands, flights);
             assertTrue(true);
         } catch (IceepeeceeException e) {

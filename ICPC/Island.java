@@ -34,7 +34,6 @@ public class Island {
     public Island(String color, int[][] vertexArray) throws IceepeeceeException {
         isVisible = true;
         this.color = color;
-        
         if (usedColors.contains(color)) {
             throw new IceepeeceeException("El color " + color + " ya se ha utilizado para otra isla.");
         }

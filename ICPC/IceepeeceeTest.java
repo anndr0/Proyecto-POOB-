@@ -3,6 +3,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The test class IceepeeceeTest.
+ *
+ * @author Ana María Durán And Laura Natalia Rojas
+ * @version 23/03/23
+ */
 public class IceepeeceeTest {
     private Iceepeecee iceepeecee;
 
