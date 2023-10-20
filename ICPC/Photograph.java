@@ -147,7 +147,6 @@ public void draw() {
     
     public List<Point> getVertices() {
         List<Point> vertices = new ArrayList<>();
-        if (isVisible) {
             Canvas canvas = Canvas.getCanvas();
             Flight flight = Flight.getFlightByColor(flightColor);
             if (flight != null) {
@@ -175,8 +174,7 @@ public void draw() {
                 double x4 = from[0] + (baseMenor * Math.cos(perpendicularAngle + Math.PI));
                 double y4 = from[1] + (baseMenor * Math.sin(perpendicularAngle + Math.PI));
     
-                // Redondear las coordenadas según la precisión deseada
-                double precision = 1e-6; // Puedes ajustar esto según la precisión necesaria
+                double precision = 1e-1; 
                 x1 = Math.round(x1 / precision) * precision;
                 y1 = Math.round(y1 / precision) * precision;
                 x2 = Math.round(x2 / precision) * precision;
@@ -191,7 +189,6 @@ public void draw() {
                 vertices.add(new Point((int)x3, (int)y3));
                 vertices.add(new Point((int)x4, (int)y4));
             }
-        }
         return vertices;
     }
 

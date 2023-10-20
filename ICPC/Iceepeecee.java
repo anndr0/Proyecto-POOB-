@@ -38,7 +38,7 @@ public class Iceepeecee {
             canvas.setVisible(true);
             this.islands = new HashMap<>();
             this.flights = new HashMap<>();
-            isVisible = true;
+            isVisible = false;
             operationSuccess = true;
             ok();
         } else {
@@ -48,38 +48,43 @@ public class Iceepeecee {
         }
     }
     
-    public Iceepeecee(int[][][] islands, int[][][] flights) {
+    public Iceepeecee(int[][][] islands, int[][][] flights) throws IceepeeceeException {
         this.length = 300;
-        this.width = 300; 
+        this.width = 300;
         canvas = Canvas.getCanvas(length, width);
         canvas.setVisible(true);
-        
+    
         this.islands = new HashMap<>();
         this.flights = new HashMap<>();
         isVisible = false;
+    
         operationSuccess = true;
-        ok();
+    
         if (islands != null && flights != null) {
-        
             for (int i = 0; i < islands.length; i++) {
                 int[][] islandVertices = islands[i];
                 String islandColor = getColorForIndex(i); // Obtener el color según el índice
-                addIsland(islandColor, islandVertices);
+                try {
+                    addIsland(islandColor, islandVertices);
+                } catch (IceepeeceeException e) {
+                    operationSuccess = false; // Indicar que la inicialización no fue exitosa
+                    throw e; // Relanzar la excepción hacia el llamador
+                }
             }
-            
+    
             for (int i = 0; i < flights.length; i++) {
-                
                 int[] from = flights[i][0];
                 int[] to = flights[i][1];
                 String flightColor = getColorForIndex(i); // Obtener el color según el índice
                 addFlight(flightColor, from, to);
             }
-            ok();
+            //ok();
         } else {
             operationSuccess = false; // Indicar que la inicialización no fue exitosa
-            ok();
+            //ok();
         }
     }
+
 
 
 
@@ -98,20 +103,17 @@ public class Iceepeecee {
      * @param color       The color of the island.
      * @param vertexArray The vertices of the island.
      */
-    public void addIsland(String color, int[][] vertexArray) {
+    public void addIsland(String color, int[][] vertexArray) throws IceepeeceeException {
         if (!islands.containsKey(color)) {
             if (isWithinCanvasBounds(vertexArray)) {
                 Island island = new Island(color, vertexArray);
                 islands.put(color, island);
                 operationSuccess = true; // Indicar que la adición fue exitosa
-                ok();
             } else {
                 operationSuccess = false; // Indicar que la adición no fue exitosa debido a ubicación fuera de los límites del canvas
-                ok();
             }
         } else {
-            operationSuccess = false; // Indicar que la adición no fue exitosa debido a repetición de color
-            ok();
+            throw new IceepeeceeException("El color " + color + " ya se ha utilizado para otra isla.");
         }
     }
     
@@ -140,10 +142,10 @@ public class Iceepeecee {
             islands.remove(color);
             island.delIsland(color); // Calls the method to delete the island in Island
             operationSuccess = true;
-            ok();
+            //ok();
         } else{
             operationSuccess = false;
-            ok();
+            //ok();
         }
     }
     
@@ -157,10 +159,10 @@ public class Iceepeecee {
         if (island != null) {
             island.makeIslandVisible(color); // Make the polygon of the specified island visible
             operationSuccess = true;
-            ok();
+            //ok();
         } else{
             operationSuccess = false;
-            ok();
+            //ok();
         }
     }
 
@@ -174,10 +176,10 @@ public class Iceepeecee {
         if (island != null) {
             island.makeIslandInvisible(color); // Make the polygon of the specified island invisible
             operationSuccess = true;
-            ok();
+            //ok();
         }else{
             operationSuccess = false;
-            ok();
+            //ok();
         }
     } 
     
@@ -192,11 +194,11 @@ public class Iceepeecee {
         Island islandObj = islands.get(island);
         if (islandObj != null) {
             operationSuccess = true; // Indicate that the island location retrieval was successful
-            ok();
+            //ok();
             return islandObj.locationIsland(island);
         } else {
             operationSuccess = false; // Indicate that the island location retrieval was not successful
-            ok();
+            //ok();
             return null; // Returns null if the island does not exist
         }
     }
@@ -223,10 +225,10 @@ public class Iceepeecee {
             Flight flight = new Flight(color, from, to);
             flights.put(color, flight);
             operationSuccess = true; // Indicar que la adición fue exitosa
-            ok();
+            //ok();
         } else {
             operationSuccess = false; // Indicar que la adición no fue exitosa debido a repetición de color
-            ok();
+            //ok();
         }
     }
     
@@ -249,10 +251,10 @@ public class Iceepeecee {
             flights.remove(color);
             flight.deleteFlight(color); // Calls the method to delete the flight in Flight
             operationSuccess = true;
-            ok();
+            //ok();
         } else {
             operationSuccess = false;
-            ok();
+            //ok();
         }
     }
 
@@ -267,11 +269,11 @@ public class Iceepeecee {
         Flight flightObj = flights.get(flight);
         if (flightObj != null) {
             operationSuccess = true; // Indicate that the flight location retrieval was successful
-            ok();
+            //ok();
             return flightObj.locationFlight(flight);
         } else {
             operationSuccess = false; // Indicate that the flight location retrieval was not successful
-            ok();
+            //ok();
             return null; // Returns a message if the flight does not exist
         }
     }
@@ -291,10 +293,10 @@ public class Iceepeecee {
             }
             flight.draw();
             operationSuccess = true;
-            ok();
+            //ok();
         } else {
             operationSuccess = false; 
-            ok();
+            //ok();
         }
     }
     
@@ -314,10 +316,10 @@ public class Iceepeecee {
             }
             canvas.erase(flight);
             operationSuccess = true;
-            ok();
+            //ok();
         } else {
             operationSuccess = false; 
-            ok();
+            //ok();
         }
     }
     
@@ -351,7 +353,7 @@ public class Iceepeecee {
                         List<Point> photographVertices = photograph.getVertices();
 
                         if (isPolygonInsidePolygon(islandPoints, photographVertices)) {
-                            island.drawIslandOutline(islandColor);
+                            island.drawOutline(islandColor);
                         }
                     }
                 }
@@ -359,11 +361,11 @@ public class Iceepeecee {
         }
     
             operationSuccess = true;
-            ok();
+            //ok();
         } else {
             System.out.println("Flight not found"); 
             operationSuccess = false;
-            ok();
+            //ok();
         }
     }
 
@@ -391,7 +393,7 @@ public class Iceepeecee {
                             for (Photograph photograph : photographs) {
                                 List<Point> photographVertices = photograph.getVertices();
                                 if (isPolygonInsidePolygon(islandPoints, photographVertices)) {
-                                    island.drawIslandOutline(islandColor);
+                                    island.drawOutline(islandColor);
                                 }
                             }
                         }
@@ -405,7 +407,7 @@ public class Iceepeecee {
         } else {
             operationSuccess = false;
         }
-        ok();
+        //ok();
     }
 
 
@@ -425,7 +427,7 @@ public class Iceepeecee {
             }
         }
 
-        // Make all islands visible
+        // Make all islands visible and draw their outline if being observed
         for (Island island : islands.values()) {
             String color = island.getColor();
             island.makeIslandVisible(color);
@@ -445,10 +447,10 @@ public class Iceepeecee {
             }
         }
         
-        ok();
+        //ok();
     }
 
-    /**
+/**
      * Make all elements in Iceepeecee invisible, including flights, islands, and photographs.
      */
     public void makeInvisible() {
@@ -479,8 +481,10 @@ public class Iceepeecee {
                 }
             }
         }
-        ok();
+        //ok();
     }
+
+
     
     public double flightCamera(String color) {
         Flight flight = flights.get(color); 
@@ -502,29 +506,17 @@ public class Iceepeecee {
      * Muestra la información de todas las islas almacenadas en Iceepeecee.
      */
     public String[] islands() {
-        List<String> islandLocations = new ArrayList<>();
+        List<String> islandColors = new ArrayList<>();
     
         for (Island island : islands.values()) {
             String color = island.getColor();
-            int[][] location = island.locationIsland(color);
-    
-            if (location != null) {
-                StringBuilder locationString = new StringBuilder("Color: " + color + " Location: [");
-                for (int i = 0; i < location.length; i++) {
-                    locationString.append("[").append(location[i][0]).append(", ").append(location[i][1]).append("]");
-                    if (i < location.length - 1) {
-                        locationString.append(", ");
-                    }
-                }
-                locationString.append("] ");
-                islandLocations.add(locationString.toString());
-            }
+            islandColors.add(color);
         }
     
-        String[] islandLocationsArray = new String[islandLocations.size()];
-        islandLocations.toArray(islandLocationsArray);
-        
-        return islandLocationsArray;
+        String[] islandColorsArray = new String[islandColors.size()];
+        islandColors.toArray(islandColorsArray);
+    
+        return islandColorsArray;
     }
 
     
@@ -685,9 +677,37 @@ public class Iceepeecee {
         
         // Convierte la lista de islas contenidas en un arreglo de String
         String[] observedIslands = observedIslandsList.toArray(new String[0]);
-        
         return observedIslands;
     }
+    
+    /*public List<int[][]> ObservedIslandVertices() {
+        List<int[][]> observedVerticesList = new ArrayList<>();
+    
+        for (Island island : islands.values()) {
+            String islandColor = island.getColor();
+            int[][] islandVertices = getIslandVertices(islandColor);
+    
+            if (islandVertices != null && islandVertices.length > 0) {
+                List<Point> islandPoints = convertToPoints(islandVertices);
+    
+                for (Flight flight : flights.values()) {
+                    List<Photograph> photographs = flight.getPhotographs();
+    
+                    for (Photograph photograph : photographs) {
+                        List<Point> photographVertices = photograph.getVertices();
+    
+                        if (isPolygonInsidePolygon(islandPoints, photographVertices)) {
+                            observedVerticesList.add(islandVertices);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    
+        return observedVerticesList;
+    }*/
+
 
     public String[] uselessFlights() {
         List<String> uselessFlightList = new ArrayList<>();
@@ -787,6 +807,19 @@ public class Iceepeecee {
         return intersectCount % 2 != 0;
     }
     
+    /**
+     * Obtiene una lista de todos los vértices de las islas en Iceepeecee.
+     *
+     * @return Una lista de matrices de vértices de las islas.
+     */
+    public List<int[][]> getAllIslandVertices() {
+        List<int[][]> allVertices = new ArrayList<>();
     
-    
+        for (Island island : islands.values()) {
+            int[][] vertices = island.getVertexArray();
+            allVertices.add(vertices);
+        }
+        return allVertices;
+    }
+
 }

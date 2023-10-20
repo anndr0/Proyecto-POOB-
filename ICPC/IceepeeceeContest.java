@@ -4,39 +4,83 @@ public class IceepeeceeContest {
     private double theta;
     private static Iceepeecee iceepeecee;
     static final double PI = 2 * Math.acos(0);
-    
-    public static double solve(int[][][] islands, int[][][] flights) {
-    Iceepeecee iceepeecee = new Iceepeecee(islands, flights);
-    String[] allIslands = iceepeecee.islands();
-    Arrays.sort(allIslands);
 
-    double lo = 0.0; // Ángulo inicial en grados
-    double hi = Math.PI / 2; // Ángulo máximo en grados
-    double bestAngle = -1.0;
-    
+    public static double solve(int[][][] islands, int[][][] flights) throws IceepeeceeException {
+        try {
+            Iceepeecee iceepeecee = new Iceepeecee(islands, flights);
+            String[] allIslands = new String[islands.length];
+            String[] allIslandsTemporal = new String[islands.length];
+            allIslands = iceepeecee.islands();
+            Arrays.sort(allIslands);
+            double lo = 0.0;
+            double hi = 90;
+            double best = -1;
+            for (int rep = 0; rep < 64; rep++) {
+                double th = (hi + lo) / 2;
+                iceepeecee.makeInvisible();
+                iceepeecee.photograph(th);
+                allIslandsTemporal = iceepeecee.observedIslands();
 
-    for (int rep = 0; rep < 64; rep++) {
-        double th = (hi + lo) / 2;
-        iceepeecee.photograph(th); // Usar grados directamente
-        String[] observedIslands = iceepeecee.observedIslands();
-        Arrays.sort(observedIslands);
+                Arrays.sort(allIslandsTemporal);
+                boolean areEqual = Arrays.equals(allIslands, allIslandsTemporal);
+                iceepeecee.makeInvisible();
+                if (areEqual) {
+                    hi = th;
+                    best = th;
+                } else {
+                    lo = th;
+                }
+            }
 
-        boolean areEqual = Arrays.equals(allIslands, observedIslands);
-
-        if (areEqual) {
-            bestAngle = th;
-            lo = th; // Aumentar el ángulo
-        } else {
-            hi = th; // Reducir el ángulo
+            if (best == -1) {
+                System.out.println("Impossible");
+                return -1;
+            } else {
+                double theta = (best);
+                iceepeecee.makeInvisible();
+                return theta;
+            }
+        } catch (IceepeeceeException e) {
+            throw e; // Relanza la excepción para su manejo en un nivel superior
         }
     }
 
-    if (bestAngle == -1) {
-        return -1;
-    } else {
-        return bestAngle;
+    public static void simulate(int[][][] islands, int[][][] flights) throws IceepeeceeException {
+        try {
+            Iceepeecee iceepeecee = new Iceepeecee(islands, flights);
+            String[] allIslands = new String[islands.length];
+            String[] temporal = new String[islands.length];
+            allIslands = iceepeecee.islands();
+            Arrays.sort(allIslands);
+            double lo = 0.0;
+            double hi = 90;
+            double best = -1;
+            for (int rep = 0; rep < 64; rep++) {
+                double th = (hi + lo) / 2;
+                iceepeecee.makeInvisible();
+                iceepeecee.photograph(th);
+                iceepeecee.makeVisible();
+                temporal = iceepeecee.observedIslands();
+                Arrays.sort(temporal);
+
+                boolean areEqual = Arrays.equals(allIslands, temporal);
+                if (areEqual) {
+                    hi = th;
+                    best = th;
+                } else {
+                    lo = th;
+                }
+            }
+
+            if (best == -1) {
+                iceepeecee.makeInvisible();
+            } else {
+                iceepeecee.makeInvisible();
+                iceepeecee.makeVisible();
+                iceepeecee.photograph(best);
+            }
+        } catch (IceepeeceeException e) {
+            throw e; // Relanza la excepción para su manejo en un nivel superior
+        }
     }
-}
-
-
 }

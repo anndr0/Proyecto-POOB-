@@ -2,6 +2,4 @@
 comment0.target=IceepeeceeContest
 comment1.params=islands\ flights
 comment1.target=double\ solve(int[][][],\ int[][][])
-comment2.params=islands\ flights
-comment2.target=void\ simulate(int[][][],\ int[][][])
-numComments=3
+numComments=2

@@ -1,0 +1,15 @@
+#BlueJ class context
+comment0.target=IceepeeceeAngleSolution
+comment1.params=
+comment1.target=IceepeeceeAngleSolution()
+comment2.params=islands\ flights
+comment2.target=double\ solveproblem(int[][][],\ int[][][])
+comment3.params=seen
+comment3.target=boolean\ allIslandsSeen(boolean[])
+comment4.params=a\ b\ c\ d
+comment4.target=boolean\ lineSegmentIntersection(double[],\ double[],\ double[],\ double[])
+comment5.params=x1\ y1\ x2\ y2
+comment5.target=double\ crossProduct(double,\ double,\ double,\ double)
+comment6.params=islands\ flights
+comment6.target=void\ simulate(int[][][],\ int[][][])
+numComments=7

@@ -37,13 +37,15 @@ public class Flight {
         if (usedColors.contains(color)) {
             throw new IllegalArgumentException("El color " + color + " ya se ha utilizado para otra isla.");
         }
+        isVisible = false;
         this.color = color;
         this.from = from;
         this.to = to;
-        isVisible = true;
+ 
         photographs = new ArrayList<>();
         flights.put(color, this);
         draw();
+        makeFlightInvisible(color);
     }
     
     public boolean isVisible(){
@@ -140,7 +142,9 @@ public class Flight {
         int[] xPoints = {from[0], to[0]};
         int[] yPoints = {from[1], to[1]};
         Canvas canvas = Canvas.getCanvas();
+        
         canvas.draw(this, color, new java.awt.Polygon(xPoints, yPoints, 2), 255);
+        
     }
         
     /**
