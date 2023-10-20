@@ -29,7 +29,7 @@ public class ContestTest {
         double expected = 48.031693036;
 
         // Comprueba si el resultado coincide con el valor esperado
-        assertEquals(expected, result, 0.1); // Ajusta la tolerancia según sea necesario
+        assertEquals(expected, result, 0.1); // Tolerancia
     }
     
     @Test
