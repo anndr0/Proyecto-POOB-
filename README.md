@@ -21,5 +21,11 @@ EXTENSIBILIDAD.
  9. Debe permitir incluir cámaras con ángulos no enteros ✅
  10. Debe permitir consutar todas las islas y los vuelos✅
  11. Debe permitir consultar las islas registradas en las fotografías✅
- 12. Debe permitir consultar los vuelos con fotografías inútiles
- :)
+ 12. Debe permitir consultar los vuelos con fotografías inútiles ✅
+
+-----
+## TERCER CICLO (̶◉͛‿◉̶)
+### REFACTORING Y EXTENSIÓN.
+13. Debe solucionar el problema de la maratón ✅
+14. Debe simular la solución ✅
+
