@@ -1,11 +1,26 @@
 import java.util.ArrayList;
-// Clase IceepeeceeAngleSolution que resuelve el problema del ángulo
+
+/**
+ * IceepeeceeAngleSolution class that solves the angle problem.
+ * @author Ana María Durán And Laura Natalia Rojas
+ * @version 23/03/23
+ */
+
 class IceepeeceeAngleSolution {
+    
+    /**
+     * IceepeeceeAngleSolution class that solves the angle problem.
+     */
     public IceepeeceeAngleSolution() {
-        // Constructor de la clase
     }
 
-    // Método para resolver el problema del ángulo
+    /**
+     * Solves the angle problem based on islands and flights data.
+     *
+     * @param islands 3D array representing the islands' coordinates.
+     * @param flights 3D array representing the flights' coordinates.
+     * @return The minimum angle in degrees, or -1 if it's impossible.
+     */
     public double solveproblem(int[][][] islands, int[][][] flights) {
         // Inicialización de variables
         double lo = 0.0, hi = Math.PI / 2;
@@ -75,13 +90,19 @@ class IceepeeceeAngleSolution {
         
         // Comprobar si el ángulo es imposible
         if (hi == Math.PI / 2) {
+            System.out.println("Imposible");
             return -1; // Imposible
         } else {
             return (hi + lo) / 2 * 180 / Math.PI; // Ángulo mínimo en grados
         }
     }
     
-    // Método para verificar si todas las islas han sido vistas
+     /**
+     * Checks if all islands have been seen.
+     *
+     * @param seen An array of booleans representing island visibility.
+     * @return True if all islands have been seen, false otherwise.
+     */
     private boolean allIslandsSeen(boolean[] seen) {
         for (boolean islandSeen : seen) {
             if (!islandSeen) {
@@ -91,7 +112,15 @@ class IceepeeceeAngleSolution {
         return true;
     }
     
-    // Método para verificar la intersección de dos segmentos de línea
+    /**
+     * Checks if two line segments intersect.
+     *
+     * @param a The first point of the first line segment.
+     * @param b The second point of the first line segment.
+     * @param c The first point of the second line segment.
+     * @param d The second point of the second line segment.
+     * @return True if the line segments intersect, false otherwise.
+     */
     private boolean lineSegmentIntersection(double[] a, double[] b, double[] c, double[] d) {
         double cp1 = crossProduct(b[0] - a[0], b[1] - a[1], c[0] - a[0], c[1] - a[1]);
         double cp2 = crossProduct(b[0] - a[0], b[1] - a[1], d[0] - a[0], d[1] - a[1]);
@@ -112,19 +141,16 @@ class IceepeeceeAngleSolution {
         return true;
     }
     
-    // Método para calcular el producto cruz de dos vectores
+    /**
+     * Calculates the cross product of two vectors.
+     *
+     * @param x1 The x-coordinate of the first vector.
+     * @param y1 The y-coordinate of the first vector.
+     * @param x2 The x-coordinate of the second vector.
+     * @param y2 The y-coordinate of the second vector.
+     * @return The cross product of the two vectors.
+     */
     private double crossProduct(double x1, double y1, double x2, double y2) {
         return x1 * y2 - y1 * x2;
-    }
-    
-    // Método para simular el problema y mostrar el resultado
-    public void simulate(int[][][] islands, int[][][] flights) {
-        double angle = solveproblem(islands, flights);
-        
-        if (angle == -1) {
-            System.out.println("impossible");
-        } else {
-            System.out.printf("%.9f%n", angle);
-        }
     }
 }

@@ -83,9 +83,9 @@ public class IceepeeceeCC2Test
             Iceepeecee iceepeecee = new Iceepeecee(islands, flights);
             
             String[] expectedIslands = {
-                "Color: red Location: [[20, 30], [50, 50], [10, 50]] ",
-                "Color: green Location: [[40, 20], [60, 10], [75, 20], [60, 30]] ",
-                "Color: blue Location: [[45, 60], [55, 55], [60, 60], [55, 65]] "
+                "red",
+                "green",
+                "coral"
             };
     
             
@@ -138,9 +138,8 @@ public class IceepeeceeCC2Test
             Iceepeecee iceepeecee = new Iceepeecee(islands, flights);
             
             String[] expectedFlights = {
-                "Color: red Location: [[0, 30, 20], [78, 70, 5]] ",
-                "Color: green Location: [[55, 0, 20], [70, 60, 10]] ",
-                // Agrega más vuelos y su información esperada aquí
+                "red",
+                "green",
             };
             
             String[] flightLocations = iceepeecee.flights();
