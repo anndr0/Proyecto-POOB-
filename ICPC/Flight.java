@@ -184,13 +184,6 @@ public class Flight {
         }
     }
 
-
-    /**
-     * Capture a photograph during the flight with a specified angle.
-     * 
-     * @param color The color of the flight.
-     * @param theta  The angle at which the photograph is taken.
-     */
     public void camera(String color, double theta) {
         Photograph photograph = new Photograph(color, theta);
         // Reemplazar la última fotografía si ya existía una
@@ -200,8 +193,6 @@ public class Flight {
         photographs.add(photograph);
     }
 
-    
-    
     /**
      * Get a flight by its color.
      * 

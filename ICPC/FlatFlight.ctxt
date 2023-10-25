@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=FlatFlight
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ FlatFlight\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=color\ from\ to
+comment1.target=FlatFlight(java.lang.String,\ int[],\ int[])
+numComments=2

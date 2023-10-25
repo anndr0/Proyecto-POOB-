@@ -1,4 +1,5 @@
 import java.util.*;
+import javax.swing.JOptionPane;
 /**
  * The IceepeeceeContest class provides methods for solving and simulate Iceepeecee marathon problem.
  * @author Ana María Durán And Laura Natalia Rojas
@@ -99,8 +100,16 @@ public class IceepeeceeContest {
                 iceepeeceeSimulate.makeVisible();
                 iceepeeceeSimulate.photograph(best);
             }
- 
-            iceepeeceeSimulate.finish();
+            
+            // Mostrar el resultado en una ventana emergente
+            if (best == -1) {
+                JOptionPane.showMessageDialog(null, "Ángulo mínimo: Imposible", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                double angle = (best) * 180 / Math.PI;
+                JOptionPane.showMessageDialog(null, "Ángulo mínimo encontrado: " + best + " grados", "Resultado", JOptionPane.INFORMATION_MESSAGE);
+            }
+             
+            // iceepeeceeSimulate.finish();
         } catch (IceepeeceeException e) {
             throw e; // Relanza la excepción para su manejo en un nivel superior
         }

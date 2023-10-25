@@ -15,7 +15,6 @@ comment12.target=void\ clearPhotographs()
 comment12.text=\r\n\ Clear\ all\ the\ photographs\ taken\ during\ the\ flight,\ making\ previous\ ones\ invisible\ and\ keeping\ the\ last\ one\ registered.\r\n
 comment13.params=color\ theta
 comment13.target=void\ camera(java.lang.String,\ double)
-comment13.text=\r\n\ Capture\ a\ photograph\ during\ the\ flight\ with\ a\ specified\ angle.\r\n\ \r\n\ @param\ color\ The\ color\ of\ the\ flight.\r\n\ @param\ theta\ \ The\ angle\ at\ which\ the\ photograph\ is\ taken.\r\n
 comment14.params=color
 comment14.target=Flight\ getFlightByColor(java.lang.String)
 comment14.text=\r\n\ Get\ a\ flight\ by\ its\ color.\r\n\ \r\n\ @param\ color\ The\ color\ of\ the\ flight\ to\ retrieve.\r\n\ @return\ The\ Flight\ object\ with\ the\ specified\ color.\r\n

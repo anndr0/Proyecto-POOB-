@@ -111,6 +111,28 @@ public class Iceepeecee {
      */
     public void addIsland(String color, int[][] vertexArray) throws IceepeeceeException {
         if (!islands.containsKey(color)) {
+            addNormalIsland(color, vertexArray);
+        } else {
+            throw new IceepeeceeException("El color " + color + " ya se ha utilizado para otra isla.");
+        }
+    }
+    
+    public void addIsland(String type, String color, int[][] vertexArray) throws IceepeeceeException {
+        if (type.equals("normal")) {
+            addNormalIsland(color, vertexArray);
+        }else if (type.equals("fixed")) {
+            addFixedIsland(color, vertexArray);
+        } else if (type.equals("surprising")) {
+            addSurprisingIsland(color, vertexArray);
+        }else if (type.equals("mistery")) {
+            addMisteryIsland(color, vertexArray);
+        }        else {
+            throw new IceepeeceeException("Tipo de isla desconocido: " + type);
+        }
+    }
+    
+    private void addNormalIsland(String color, int[][] vertexArray) throws IceepeeceeException {
+        if (!islands.containsKey(color)) {
             if (isWithinCanvasBounds(vertexArray)) {
                 Island island = new Island(color, vertexArray);
                 islands.put(color, island);
@@ -123,6 +145,48 @@ public class Iceepeecee {
         }
     }
     
+    private void addFixedIsland(String color, int[][] vertexArray) throws IceepeeceeException {
+        if (!islands.containsKey(color)) {
+            if (isWithinCanvasBounds(vertexArray)) {
+                FixedIsland fixedIsland = new FixedIsland(color, vertexArray);
+                islands.put(color, fixedIsland);
+                operationSuccess = true; // Indicar que la adición fue exitosa
+            } else {
+                operationSuccess = false; // Indicar que la adición no fue exitosa debido a ubicación fuera de los límites del canvas
+            }
+        } else {
+            throw new IceepeeceeException("El color " + color + " ya se ha utilizado para otra isla.");
+        }
+    }
+    
+    private void addSurprisingIsland(String color, int[][] vertexArray) throws IceepeeceeException {
+        if (!islands.containsKey(color)) {
+            if (isWithinCanvasBounds(vertexArray)) {
+                SurprisingIsland surprisingIsland = new SurprisingIsland(color, vertexArray);
+                islands.put(color, surprisingIsland);
+                operationSuccess = true; // Indicar que la adición fue exitosa
+            } else {
+                operationSuccess = false; // Indicar que la adición no fue exitosa debido a ubicación fuera de los límites del canvas
+            }
+        } else {
+            throw new IceepeeceeException("El color " + color + " ya se ha utilizado para otra isla.");
+        }
+    }
+    
+    private void addMisteryIsland(String color, int[][] vertexArray) throws IceepeeceeException {
+        if (!islands.containsKey(color)) {
+            if (isWithinCanvasBounds(vertexArray)) {
+                MisteryIsland misteryIsland = new MisteryIsland(color, vertexArray);
+                islands.put(color, misteryIsland);
+                operationSuccess = true; // Indicar que la adición fue exitosa
+            } else {
+                operationSuccess = false; // Indicar que la adición no fue exitosa debido a ubicación fuera de los límites del canvas
+            }
+        } else {
+            throw new IceepeeceeException("El color " + color + " ya se ha utilizado para otra isla.");
+        }
+    }
+
     /**
      * Get an island by its color.
      * 
@@ -131,6 +195,9 @@ public class Iceepeecee {
      */
     private Island getIsland(String color) {
         return islands.get(color);
+    }
+    public HashMap getIslands (){
+        return this.islands;
     }
     
     /**
@@ -151,16 +218,19 @@ public class Iceepeecee {
     public void deleteIsland(String color) {
         Island island = islands.get(color);
         if (island != null) {
-            islands.remove(color);
-            island.delIsland(color); // Calls the method to delete the island in Island
-            operationSuccess = true;
-            //ok();
-        } else{
+            if (island instanceof FixedIsland) {
+                // Si es una FixedIsland, solo muestra el mensaje sin eliminarla
+                ((FixedIsland)island).delIsland(color);
+            } else {
+                islands.remove(color);
+                island.delIsland(color); // Llama al método para eliminar la isla en Island
+                operationSuccess = true;
+            }
+        } else {
             operationSuccess = false;
-            //ok();
         }
     }
-    
+
     /**
      * Make the island with the specified color visible.
      * 
@@ -195,7 +265,6 @@ public class Iceepeecee {
         }
     } 
     
-    
     /**
      * Get the location of an island by color.
      * 
@@ -207,7 +276,9 @@ public class Iceepeecee {
         if (islandObj != null) {
             operationSuccess = true; // Indicate that the island location retrieval was successful
             //ok();
-            return islandObj.locationIsland(island);
+            int [][] ubicacion = islandObj.locationIsland(island);
+            makeVisible();
+            return ubicacion;
         } else {
             operationSuccess = false; // Indicate that the island location retrieval was not successful
             //ok();
@@ -215,7 +286,6 @@ public class Iceepeecee {
         }
     }
 
-    
     /**
      * Add a flight to Iceepeecee.
      * Do not repeat the color pls( •ㅅ•)
@@ -236,6 +306,55 @@ public class Iceepeecee {
         if (!flights.containsKey(color)) {
             Flight flight = new Flight(color, from, to);
             flights.put(color, flight);
+            operationSuccess = true; // Indicar que la adición fue exitosa
+            //ok();
+        } else {
+            operationSuccess = false; // Indicar que la adición no fue exitosa debido a repetición de color
+            //ok();
+        }
+    }
+    
+    public void addFlight(String type, String color, int[] from, int[] to){
+        if (type.equals("normal")) {
+            addNormalFlight(color, to,from);
+        }else if (type.equals("lazy")) {
+            addLazyFlight(color, to,from);
+        } else if (type.equals("flat")) {
+            addFlatFlight(color, to,from);
+        }else {
+            operationSuccess = false; // Indicar que la adición no fue exitosa debido a repetición de color
+            //ok();
+        }
+    }
+    
+    private void addNormalFlight (String color, int[] from, int[] to){
+        if (!flights.containsKey(color)) {
+            Flight flight = new Flight(color, from, to);
+            flights.put(color, flight);
+            operationSuccess = true; // Indicar que la adición fue exitosa
+            //ok();
+        } else {
+            operationSuccess = false; // Indicar que la adición no fue exitosa debido a repetición de color
+            //ok();
+        }
+    }
+    
+    private void addLazyFlight (String color, int[] from, int[] to){
+        if (!flights.containsKey(color)) {
+            Flight lazyflight = new LazyFlight(color, from, to);
+            flights.put(color, lazyflight);
+            operationSuccess = true; // Indicar que la adición fue exitosa
+            //ok();
+        } else {
+            operationSuccess = false; // Indicar que la adición no fue exitosa debido a repetición de color
+            //ok();
+        }
+    }
+    
+    private void addFlatFlight (String color, int[] from, int[] to){
+        if (!flights.containsKey(color)) {
+            Flight flatflight = new FlatFlight(color, from, to);
+            flights.put(color, flatflight);
             operationSuccess = true; // Indicar que la adición fue exitosa
             //ok();
         } else {
@@ -270,7 +389,6 @@ public class Iceepeecee {
         }
     }
 
-    
     /**
      * Get the location of a flight by color.
      * 
@@ -282,6 +400,7 @@ public class Iceepeecee {
         if (flightObj != null) {
             operationSuccess = true; // Indicate that the flight location retrieval was successful
             //ok();
+
             return flightObj.locationFlight(flight);
         } else {
             operationSuccess = false; // Indicate that the flight location retrieval was not successful
@@ -371,7 +490,6 @@ public class Iceepeecee {
                 }
             }
         }
-    
             operationSuccess = true;
             //ok();
         } else {
@@ -381,9 +499,6 @@ public class Iceepeecee {
         }
     }
 
-
-
-    
     /**
      * Capture photographs from all flights in Iceepeecee at the given angle (theta).
      * 
@@ -422,9 +537,6 @@ public class Iceepeecee {
         //ok();
     }
 
-
-
-    
     /**
      * Makes flights, islands, and photographs visible within the Iceepeecee simulation.
      * If any operation is successful during the process, it sets the operationSuccess flag to true.
@@ -539,7 +651,6 @@ public class Iceepeecee {
         return islandColorsArray;
     }
 
-    
     /**
      * Retrieves information about all the flights stored in Iceepeecee.
      *

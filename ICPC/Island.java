@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class Island {
     private List<Point> vertices;
-    private static HashMap<String, MyPolygon> islands = new HashMap<>();
-    private boolean isVisible;
-    private int[][] vertexArray;
+    protected static HashMap<String, MyPolygon> islands = new HashMap<>();
+    protected boolean isVisible;
+    protected int[][] vertexArray;
     private String color;
     private boolean operationSuccess;
-    private static Set<String> usedColors = new HashSet<>();
+    protected static Set<String> usedColors = new HashSet<>();
 
     /**
      * Constructs an Island object with the specified vertex array and color.
@@ -127,14 +127,14 @@ public class Island {
      * 
      * @return An array of vertices representing the island's shape.
      */
-    public int[][] getVertexArray() {
+    protected int[][] getVertexArray() {
         return vertexArray;
     }
     
     /**
      * Displays the islands stored in the HashMap, including their color and vertices.
      */
-    private static void showIslands() {
+    protected static void showIslands() {
         System.out.println("Islas almacenadas en el HashMap:");
         for (Map.Entry<String, MyPolygon> entry : islands.entrySet()) {
             String color = entry.getKey();
@@ -156,14 +156,13 @@ public class Island {
         return operationSuccess;
     }
     
-    
     /**
      * Checks if the island is entirely within the specified flight.
      *
      * @param flight The flight to be verified.
      * @return true if the island is entirely within the flight, false otherwise.
      */
-    private boolean isCompletelyInsideFlight(Flight flight) {
+    protected boolean isCompletelyInsideFlight(Flight flight) {
         if (flight != null) {
             int[][] islandVertices = this.getVertexArray();
             if (islandVertices != null && islandVertices.length > 0) { // Verificar si la isla tiene vértices válidos
@@ -194,7 +193,7 @@ public class Island {
      * @return true if the point is inside the flight, false otherwise.
      */
 
-    private boolean isInsideFlight(int[] point, int[] flightVertex) {
+    protected boolean isInsideFlight(int[] point, int[] flightVertex) {
         // Verifica si el punto (coordenadas) está dentro del vuelo (vértices del vuelo)
         return point[0] >= flightVertex[0] && point[0] <= flightVertex[2] &&
                point[1] >= flightVertex[1] && point[1] <= flightVertex[3];
