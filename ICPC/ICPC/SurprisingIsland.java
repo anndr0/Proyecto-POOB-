@@ -1,4 +1,5 @@
 package ICPC;
+import Shapes.*;
 import java.util.Random;
 import javax.swing.JOptionPane;
 import java.util.HashMap;

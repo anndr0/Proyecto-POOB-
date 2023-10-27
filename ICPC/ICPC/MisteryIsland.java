@@ -1,4 +1,5 @@
 package ICPC;
+import Shapes.*;
 import java.util.List;
 /**
  * Write a description of class MisteryIsland here.
