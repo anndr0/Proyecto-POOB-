@@ -9,6 +9,8 @@ import javax.swing.JOptionPane;
 public class FixedIsland extends Island {
     public FixedIsland(String color, int[][] vertexArray) throws IceepeeceeException {
         super(color, vertexArray); // Llama al constructor de la clase base
+        makeIslandVisible(color);
+        this.drawOutline(color, "darkGreen");
     }
     
     @Override

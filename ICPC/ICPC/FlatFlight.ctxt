@@ -1,6 +1,10 @@
 #BlueJ class context
 comment0.target=FlatFlight
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ FlatFlight\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ The\ `FlatFlight`\ class\ represents\ a\ flat\ flight\ with\ coordinates,\ color,\ and\ visibility.\r\n\ Flat\ flights\ can\ be\ created,\ displayed,\ and\ manipulated,\ and\ they\ are\ represented\r\n\ as\ lines\ with\ arrowheads\ at\ both\ ends.\r\n\ \r\n\ @author\ Ana\ Mar\u00EDa\ Dur\u00E1n\ And\ Laura\ Natalia\ Rojas\r\n\ @version\ 23/03/23\r\n
 comment1.params=color\ from\ to
 comment1.target=FlatFlight(java.lang.String,\ int[],\ int[])
-numComments=2
+comment1.text=\r\n\ Constructs\ a\ `FlatFlight`\ object\ with\ the\ specified\ color\ and\ coordinates.\r\n\ The\ flight\ is\ initially\ visible.\r\n\ \r\n\ @param\ color\ The\ color\ of\ the\ flight.\r\n\ @param\ from\ \ The\ starting\ coordinates\ [x1,\ y1,\ z1].\r\n\ @param\ to\ \ \ \ The\ ending\ coordinates\ [x2,\ y2,\ z2].\r\n
+comment2.params=
+comment2.target=void\ draw()
+comment2.text=\r\n\ Draw\ the\ flat\ flight\ on\ the\ canvas\ as\ a\ line\ with\ arrowheads\ at\ both\ ends.\r\n
+numComments=3

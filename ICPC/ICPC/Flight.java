@@ -6,7 +6,12 @@ import java.util.List;
 import java.util.HashMap;
 import java.util.Set;
 import java.util.HashSet;
-
+import java.awt.Shape;
+import java.awt.Polygon;
+import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
+import java.awt.geom.Point2D;
+import Shapes.Canvas;
 /**
  * The Flight class represents a flight with coordinates, color, and visibility.
  * Flights can be created, displayed, and manipulated.
@@ -20,7 +25,7 @@ public class Flight {
     
     private int[] from; // Starting coordinates [x1, y1, z1]
     private int[] to;   // Ending coordinates [x2, y2, z2]
-    private String color;
+    protected String color;
     public boolean isVisible;
     private static HashMap<String, Flight> flights = new HashMap<>();
     private List<Photograph> photographs;
@@ -47,7 +52,7 @@ public class Flight {
         photographs = new ArrayList<>();
         flights.put(color, this);
         draw();
-        makeFlightInvisible(color);
+        //makeFlightInvisible(color);
     }
     
     /**
@@ -146,7 +151,7 @@ public class Flight {
 
     /**
      * Draw the flight on the canvas.
-     */
+    */
     public void draw() {
         int[] from = getFrom();
         int[] to = getTo();
@@ -157,7 +162,7 @@ public class Flight {
         canvas.draw(this, color, new java.awt.Polygon(xPoints, yPoints, 2), 255);
         
     }
-        
+
     /**
      * Delete the flight by its color.
      * 

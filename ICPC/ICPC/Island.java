@@ -24,6 +24,7 @@ public class Island {
     private String color;
     private boolean operationSuccess;
     protected static Set<String> usedColors = new HashSet<>();
+    protected ArrayList<MyPolygon> outline;
 
     /**
      * Constructs an Island object with the specified vertex array and color.
@@ -36,9 +37,6 @@ public class Island {
     public Island(String color, int[][] vertexArray) throws IceepeeceeException {
         isVisible = true;
         this.color = color;
-        if (usedColors.contains(color)) {
-            throw new IceepeeceeException("El color " + color + " ya se ha utilizado para otra isla.");
-        }
         usedColors.add(color);
         // Asigna los vértices proporcionados al miembro vertexArray
         this.vertexArray = vertexArray;
@@ -79,6 +77,7 @@ public class Island {
             polygon.makeVisible(); // Make the polygon of the specified island visible
         }
     }
+
 
     /**
      * Make the island with the specified color invisible.
@@ -206,7 +205,7 @@ public class Island {
      *
      * @param color The color of the island whose outline will be drawn.
      */
-    public void drawOutline(String color) {
+    public void drawOutline(String color, String boarder) {
         if (isVisible) {
             MyPolygon polygon = islands.get(color);
             Shapes.Canvas canvas = Shapes.Canvas.getCanvas();
@@ -225,10 +224,12 @@ public class Island {
                         int y2 = vertex2.getY();
                         
                         // Dibuja una línea desde vertex1 a vertex2 con el color negro
-                        canvas.drawLine(x1, y1, x2, y2, "black");
+                        canvas.drawLine(x1, y1, x2, y2, boarder);
+                        
                     }
                 }
             }
         }
     }
+
 }

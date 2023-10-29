@@ -398,7 +398,7 @@ public class Canvas{
      * @param color  The color of the line.
      */
     public void drawLine(int x1, int y1, int x2, int y2, String color) {
-        setForegroundColor(color);
+        setForegroundColor(color, 255);
     
         // coordenadas dentro del canvas
         x1 = Math.max(0, Math.min(x1, canvas.getWidth()));
@@ -410,6 +410,7 @@ public class Canvas{
         graphic.drawLine(x1, y1, x2, y2);
         canvas.repaint();
     }
-
+    
+    
 }
 

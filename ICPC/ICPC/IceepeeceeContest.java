@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
  */
 public class IceepeeceeContest {
     private double theta;
-    private static Iceepeecee iceepeecee;
     static final double PI = 2 * Math.acos(0);
     private static double minAngle;
     private static boolean operationOk;
@@ -21,7 +20,7 @@ public class IceepeeceeContest {
      * @return The calculated solution for the challenge as an angle in degrees.
      * @throws IceepeeceeException If an exception related to Iceepeecee operations occurs.
      */
-    private double solveIceepeecee(int[][][] islands, int[][][] flights) throws IceepeeceeException {
+    public static double solveIceepeecee(int[][][] islands, int[][][] flights) throws IceepeeceeException {
         try {
             Iceepeecee iceepeecee = new Iceepeecee(islands, flights);
             String[] allIslands = new String[islands.length];
@@ -54,6 +53,7 @@ public class IceepeeceeContest {
             } else {
                 double theta = (best);
                 iceepeecee.makeInvisible();
+                iceepeecee.finish();
                 return theta;
             }
         } catch (IceepeeceeException e) {

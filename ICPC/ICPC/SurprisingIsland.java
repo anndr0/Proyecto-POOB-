@@ -17,23 +17,23 @@ import java.util.List;
  */
 public class SurprisingIsland extends Island {
 
-    private MyPolygon polygon; // Agregar un miembro para MyPolygon
-
+    private MyPolygon polygon;
+    
     public SurprisingIsland(String color, int[][] vertexArray) throws IceepeeceeException {
         super(color, vertexArray);
+        makeIslandVisible(color);
+        this.drawOutline(color, "fuchsia");
     }
-
+    
+    
     @Override
     public int[][] locationIsland(String color) {
         MyPolygon polygon = islands.get(color);
-        // Verificar si la isla es de tipo Surprising y si tiene más de tres vértices
         if (color != null && color.equals(getColor()) && polygon.getVertexCount() > 3) {
-            // Perder un vértice de forma aleatoria
             loseRandomVertex(polygon);
             JOptionPane.showMessageDialog(null, "Una SurprisingIsland ha perdido un vértice al obtener su ubicación.", "¡Sorpresa!", JOptionPane.INFORMATION_MESSAGE);
         }
-        
-        return polygon.getVertexArray(); // Utilizar el MyPolygon para obtener la ubicación
+        return polygon.getVertexArray(); 
     }
 
     // Método para perder un vértice de forma aleatoria
