@@ -1,17 +1,10 @@
 package ICPC;
 import Shapes.*;
+
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.HashMap;
-import java.util.Set;
-import java.util.HashSet;
-import java.awt.Shape;
-import java.awt.Polygon;
-import java.awt.geom.Line2D;
-import java.awt.geom.Path2D;
-import java.awt.geom.Point2D;
-import Shapes.Canvas;
+import java.awt.geom.*;
+import java.util.*;
 /**
  * The Flight class represents a flight with coordinates, color, and visibility.
  * Flights can be created, displayed, and manipulated.
@@ -30,7 +23,7 @@ public class Flight {
     private static HashMap<String, Flight> flights = new HashMap<>();
     private List<Photograph> photographs;
     private boolean operationSuccess;
-    private static Set<String> usedColors = new HashSet<>();
+
     
     /**
      * Constructs a Flight object with the specified color and coordinates.
@@ -40,10 +33,7 @@ public class Flight {
      * @param from  The starting coordinates [x1, y1, z1].
      * @param to    The ending coordinates [x2, y2, z2].
      */
-    public Flight(String color, int[] from, int[] to) {
-        if (usedColors.contains(color)) {
-            throw new IllegalArgumentException("El color " + color + " ya se ha utilizado para otra isla.");
-        }
+    public Flight(String color, int[] from, int[] to) throws IceepeeceeException  {
         isVisible = false;
         this.color = color;
         this.from = from;
@@ -52,7 +42,7 @@ public class Flight {
         photographs = new ArrayList<>();
         flights.put(color, this);
         draw();
-        //makeFlightInvisible(color);
+        makeFlightInvisible(color);
     }
     
     /**
@@ -105,7 +95,7 @@ public class Flight {
      *
      * @return A 2D integer array representing the vertices of the photograph, or null if no photographs are available.
      */
-    public int[][] getPhotographVertices() {
+    private int[][] getPhotographVertices() {
         if (!photographs.isEmpty()) {
             Photograph lastPhotograph = photographs.get(photographs.size() - 1);
             List<Point> points = lastPhotograph.getVertices();

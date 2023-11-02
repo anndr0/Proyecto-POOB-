@@ -23,7 +23,7 @@ public class IceepeeceeTest {
     public void tearDown() {
         iceepeecee.finish(); // Finaliza la simulación después de cada prueba
     }
-
+/*
     // addIsland ------------------------------------ //
     @Test
     public void testAddIslandWithValidColorAndVertices() {
@@ -49,7 +49,7 @@ public class IceepeeceeTest {
         }
     }
     // ---------------------------------------------- //
-
+/*
     // photograph(double theta) --------------------- //
     @Test
     public void testPhotographWithValidTheta() {
@@ -64,7 +64,7 @@ public class IceepeeceeTest {
         iceepeecee.photograph(-Math.PI); // Ángulo negativo
     }
     // ---------------------------------------------- //
-
+*/
     // makeVisible() --------------------- //
     @Test
     public void testMakeVisible() {

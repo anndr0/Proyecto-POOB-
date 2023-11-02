@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=FlatFlight
+comment0.text=\r\n\ The\ `FlatFlight`\ class\ represents\ a\ flat\ flight\ with\ coordinates,\ color,\ and\ visibility.\r\n\ Flat\ flights\ can\ be\ created,\ displayed,\ and\ manipulated,\ and\ they\ are\ represented\r\n\ as\ lines\ with\ arrowheads\ at\ both\ ends.\r\n\ \r\n\ @author\ Ana\ Mar\u00EDa\ Dur\u00E1n\ And\ Laura\ Natalia\ Rojas\r\n\ @version\ 23/03/23\r\n
+comment1.params=color\ from\ to
+comment1.target=FlatFlight(java.lang.String,\ int[],\ int[])
+comment1.text=\r\n\ Constructs\ a\ `FlatFlight`\ object\ with\ the\ specified\ color\ and\ coordinates.\r\n\ The\ flight\ is\ initially\ visible.\r\n\ \r\n\ @param\ color\ The\ color\ of\ the\ flight.\r\n\ @param\ from\ \ The\ starting\ coordinates\ [x1,\ y1,\ z1].\r\n\ @param\ to\ \ \ \ The\ ending\ coordinates\ [x2,\ y2,\ z2].\r\n
+comment2.params=
+comment2.target=int[]\ getFrom()
+comment2.text=\r\n\ Get\ the\ starting\ coordinates\ of\ the\ flight.\r\n\ \r\n\ @return\ An\ array\ containing\ the\ starting\ coordinates\ [x1,\ y1,\ z1].\r\n
+comment3.params=
+comment3.target=int[]\ getTo()
+comment3.text=\r\n\ Get\ the\ ending\ coordinates\ of\ the\ flight.\r\n\ \r\n\ @return\ An\ array\ containing\ the\ ending\ coordinates\ [x2,\ y2,\ z2].\r\n
+comment4.params=
+comment4.target=void\ draw()
+comment4.text=\r\n\ Draw\ the\ flat\ flight\ on\ the\ canvas\ as\ a\ line\ with\ arrowheads\ at\ both\ ends.\r\n
+numComments=5

@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=IceepeeceeCC4test
+comment0.text=\r\n\ The\ test\ class\ IceepeeceeCC4test.\r\n\r\n\ @author\ \ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=void\ testFixedValid()
+comment2.params=
+comment2.target=void\ testSurprisingValid()
+comment3.params=
+comment3.target=void\ testSurprisingInvalid()
+comment4.params=
+comment4.target=void\ testLazyValid()
+comment5.params=
+comment5.target=void\ testFlatValid()
+numComments=6

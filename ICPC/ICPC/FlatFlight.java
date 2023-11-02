@@ -23,7 +23,7 @@ public class FlatFlight extends Flight {
      * @param from  The starting coordinates [x1, y1, z1].
      * @param to    The ending coordinates [x2, y2, z2].
      */
-    public FlatFlight(String color, int[] from, int[] to) {
+    public FlatFlight(String color, int[] from, int[] to) throws IceepeeceeException {
         super(color, from ,new int[] {to[0], to[1], from[2]});
     }
     

@@ -25,7 +25,7 @@ public class LazyFlight extends Flight {
      * @param from  The starting coordinates [x1, y1, z1].
      * @param to    The ending coordinates [x2, y2, z2].
      */
-    public LazyFlight(String color, int[] from, int[] to) {
+    public LazyFlight(String color, int[] from, int[] to) throws IceepeeceeException {
         super(color, from, to);
         hasTakenPhotograph = false; // Inicialmente, no se ha tomado ninguna fotografía
     }

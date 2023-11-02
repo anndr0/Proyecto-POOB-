@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * The Iceepeecee class represents an environment for managing islands, flights, and photographs.
@@ -78,26 +79,27 @@ public class Iceepeecee {
         operationSuccess = true;
     
         if (islands != null && flights != null) {
-            for (int i = 0; i < islands.length; i++) {
-                int[][] islandVertices = islands[i];
-                String islandColor = getColorForIndex(this.islands); // Obtener el color según el índice
-                try {
+            try {
+                for (int i = 0; i < islands.length; i++) {
+                    int[][] islandVertices = islands[i];
+                    String islandColor = getColorForIndex(this.islands); // Obtener el color según el índice
                     addIsland(islandColor, islandVertices);
-                } catch (IceepeeceeException e) {
-                    operationSuccess = false; // Indicar que la inicialización no fue exitosa
-                    throw e; // Relanzar la excepción hacia el llamador
+                } 
+                    
+                for (int i = 0; i < flights.length; i++) {
+                    int[] from = flights[i][0];
+                    int[] to = flights[i][1];
+                    String flightColor = getColorForIndex(this.flights); // Obtener el color según el índice
+                    addFlight(flightColor, from, to);
                 }
+                //ok();
+                
+            } catch (IceepeeceeException e) {
+                operationSuccess = false;
+                e.printStackTrace();
             }
-    
-            for (int i = 0; i < flights.length; i++) {
-                int[] from = flights[i][0];
-                int[] to = flights[i][1];
-                String flightColor = getColorForIndex(this.flights); // Obtener el color según el índice
-                addFlight(flightColor, from, to);
-            }
-            //ok();
         } else {
-            operationSuccess = false; // Indicar que la inicialización no fue exitosa
+            operationSuccess = false;
             //ok();
         }
     }
@@ -119,33 +121,86 @@ public class Iceepeecee {
      * @param vertexArray The vertices of the island.
      */
     public void addIsland(String color, int[][] vertexArray) throws IceepeeceeException {
-        if (!islands.containsKey(color)) {
+        try {
+            // Verifica si ya existe una isla con los mismos vértices pero con un color diferente
+            String existingColor = findIslandWithSameVertices(vertexArray);
+    
+            if (existingColor != null) {
+                operationSuccess = false;
+                showErrorMessage(IceepeeceeException.ALREADY_EXISTS_ISLAND);
+            }
+    
+            if (islands.containsKey(color)) {
+                color = getUnusedColor();
+            }
+    
             if (isWithinCanvasBounds(vertexArray)) {
                 Island island = new Island(color, vertexArray);
                 islands.put(color, island);
                 operationSuccess = true;
+                showInfoMessage("Isla agregada con éxito.");
             } else {
                 operationSuccess = false;
+                showErrorMessage("Error: " + IceepeeceeException.OUT_OF_BOUNDS);
             }
-        } else {
-            throw new IceepeeceeException("El color " + color + " ya se ha utilizado para otra isla.");
+        } catch (IceepeeceeException e) {
+            operationSuccess = false;
+            showErrorMessage("Error al agregar la isla: " + e.getMessage());
         }
     }
+
+    private String getUnusedColor() {
+        for (String candidateColor : colores) {
+            if (!islands.containsKey(candidateColor)) {
+               return candidateColor;
+            }
+        }
+        return "black"; // Si todos los colores están en uso
+    }
     
-    public void addIsland(String type, String color, int[][] vertexArray) throws IceepeeceeException {
-        if (!islands.containsKey(color)) {
+    // Encuentra el color de la isla que tiene los mismos vértices que se están intentando agregar
+    private String findIslandWithSameVertices(int[][] vertexArray) {
+        for (Map.Entry<String, Island> entry : islands.entrySet()) {
+            String color = entry.getKey();
+            Island island = entry.getValue();
+            int[][] existingVertices = island.getVertexArray();
+            
+            if (Arrays.deepEquals(vertexArray, existingVertices)) {
+                return color;
+            }
+        }
+        return null;
+    }
+    
+    public void addIsland(String type, String color, int[][] vertexArray) {
+        try {
+            // Verifica si ya existe una isla con los mismos vértices pero con un color diferente
+            String existingColor = findIslandWithSameVertices(vertexArray);
+    
+            if (existingColor != null) {
+                operationSuccess = false;
+                showErrorMessage(IceepeeceeException.ALREADY_EXISTS_ISLAND);
+            }
+            
+            if (islands.containsKey(color)) {
+                color = getUnusedColor();
+            }
+        
             if (isWithinCanvasBounds(vertexArray)) {
                 Island newIsland = createIsland(type, color, vertexArray);
                 islands.put(color, newIsland);
                 operationSuccess = true;
             } else {
                 operationSuccess = false;
+                showErrorMessage("Error: " + IceepeeceeException.OUT_OF_BOUNDS);
             }
-        } else {
-            throw new IceepeeceeException("El color " + color + " ya se ha utilizado para otra isla.");
+            
+        } catch (IceepeeceeException e) {
+            operationSuccess = false;
+            showErrorMessage("Error al agregar la isla: " + e.getMessage());
         }
-    }   
-    
+    }
+
     private Island createIsland(String type, String color, int[][] vertexArray) throws IceepeeceeException {
         switch (type) {
             case "normal":
@@ -157,7 +212,7 @@ public class Iceepeecee {
             case "mistery":
                 return new MisteryIsland(color, vertexArray);
             default:
-                throw new IceepeeceeException("Tipo de isla desconocido: " + type);
+                throw new IceepeeceeException(IceepeeceeException.ISLAND_TYPE_UNKNOWN);
         }
     }
 
@@ -277,40 +332,92 @@ public class Iceepeecee {
      * @param from  The starting coordinates [x1, y1, z1].
      * @param to    The ending coordinates [x2, y2, z2].
      */
-    public void addFlight(String color, int[] from, int[] to) {
-        if (!flights.containsKey(color)) {
-            Flight flight = new Flight(color, from, to);
-            flights.put(color, flight);
-            operationSuccess = true; // Indicar que la adición fue exitosa
-            //ok();
-        } else {
-            operationSuccess = false; // Indicar que la adición no fue exitosa debido a repetición de color
-            //ok();
+    public void addFlight(String color, int[] from, int[] to) throws IceepeeceeException {
+        try{
+            String existingFlightColor = findFlightWithSamePoints(from, to);
+        
+            if (existingFlightColor != null) {
+                operationSuccess = false;
+                showErrorMessage(IceepeeceeException.ALREADY_EXISTS_FLIGHT);
+                return;
+            }
+        
+            String newColor = color;
+            while (flights.containsKey(newColor)) {
+                newColor = getUnusedColor();
+            }
+        
+            if (isWithinCanvasBounds(from) && isWithinCanvasBounds(to)) {
+                Flight flight = new Flight(newColor, from, to);
+                flights.put(newColor, flight);
+                operationSuccess = true;
+            } else {
+                operationSuccess = false;
+                showErrorMessage("Error: " + IceepeeceeException.OUT_OF_BOUNDS);
+            }
+        } catch (IceepeeceeException e) {
+            operationSuccess = false;
+            showErrorMessage("Error al agregar el vuelo: " + e.getMessage());
+        }
+    }
+
+
+    private String findFlightWithSamePoints(int[] from, int[] to) {
+        for (Map.Entry<String, Flight> entry : flights.entrySet()) {
+            Flight flight = entry.getValue();
+            int[] existingFrom = flight.getFrom();
+            int[] existingTo = flight.getTo();
+    
+            if (Arrays.equals(existingFrom, from) && Arrays.equals(existingTo, to)) {
+                return entry.getKey(); // Devuelve el color del vuelo existente
+            }
+        }
+    
+        return null; // Si no se encuentra un vuelo con los mismos puntos, devuelve null
+    }
+
+    
+    public void addFlight(String type, String color, int[] from, int[] to) throws IceepeeceeException {
+        try{
+            String existingFlightColor = findFlightWithSamePoints(from, to);
+            
+            if (existingFlightColor != null) {
+                operationSuccess = false;
+                showErrorMessage(IceepeeceeException.ALREADY_EXISTS_FLIGHT);
+                return;
+            }
+            String newColor = color;
+            while (flights.containsKey(newColor)) {
+                newColor = getUnusedColor();
+            }
+            
+            if (isWithinCanvasBounds(from) && isWithinCanvasBounds(to)) {
+                Flight flight = createFlightByType(type, newColor, from, to);
+                flights.put(newColor, flight);
+                operationSuccess = true;
+            } else {
+                operationSuccess = false;
+                showErrorMessage("Error: " + IceepeeceeException.OUT_OF_BOUNDS);
+            }
+        } catch (IceepeeceeException e) {
+            operationSuccess = false;
+            showErrorMessage("Error al agregar el vuelo: " + e.getMessage());
         }
     }
     
-     public void addFlight(String type, String color, int[] from, int[] to) {
-        if (!flights.containsKey(color)) {
-            Flight flight = createFlightByType(type, color, from, to);
-            flights.put(color, flight);
-            operationSuccess = true; // Indicar que la adición fue exitosa
-            //ok();
-        } else {
-                operationSuccess = false; // Indicar que la adición no fue exitosa debido a repetición de color
-                //ok();
+    private Flight createFlightByType(String type, String color, int[] from, int[] to) throws IceepeeceeException {
+        switch (type) {
+            case "normal":
+                return new Flight(color, from, to);
+            case "lazy":
+                return new LazyFlight(color, from, to);
+            case "flat":
+                return new FlatFlight(color, from, to);
+            default:
+                throw new IceepeeceeException(IceepeeceeException.FLIGHT_TYPE_UNKNOWN);
         }
     }
     
-    private Flight createFlightByType(String type, String color, int[] from, int[] to) {
-        if (type.equals("normal")) {
-            return new Flight(color, from, to);
-        } else if (type.equals("lazy")) {
-            return new LazyFlight(color, from, to);
-        } else if (type.equals("flat")) {
-            return new FlatFlight(color, from, to);
-        }
-        return null; // Tipo de vuelo desconocido
-    }
     
     /**
      * Delete a flight from Iceepeecee.
@@ -442,7 +549,6 @@ public class Iceepeecee {
             operationSuccess = true;
             //ok();
         } else {
-            System.out.println("Flight not found"); 
             operationSuccess = false;
             //ok();
         }

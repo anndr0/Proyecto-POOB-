@@ -8,12 +8,17 @@ package ICPC;
  */
 
 public class IceepeeceeException extends Exception {
-public static final String ALREADY_EXISTS = "Isla o vuelo ya existe en Iceepeecee";
-public static final String TYPE_UNKNOWN = "Este tipo no existe";
-public static final String OUT_OF_BOUNDS = "Isla o vuelo se sale de los limites del canvas";
-public static final String NO_PHOTOS_IN_FLIGHT = "Este vuelo no tiene fotos";
-public static final String NO_FLIGHT_FOUND = "Vuelo no encontrado";
-public static final String CANT_DELETE_FIXED_ISLAND = "No se puede eliminar una Fixed island";
+    
+    public static final String ALREADY_EXISTS_ISLAND = "Isla ya existe en Iceepeecee";
+    public static final String ALREADY_EXISTS_FLIGHT = "Vuelo ya existe en Iceepeecee";
+    public static final String ISLAND_TYPE_UNKNOWN = "Este tipo de isla no existe";
+    public static final String FLIGHT_TYPE_UNKNOWN = "Este tipo de vuelo no existe";
+    public static final String OUT_OF_BOUNDS = "Isla o vuelo se sale de los limites del canvas";
+    public static final String NO_PHOTOS_IN_FLIGHT = "Este vuelo no tiene fotos";
+    public static final String NO_FLIGHT_FOUND = "Vuelo no encontrado";
+    public static final String CANT_DELETE_FIXED_ISLAND = "No se puede eliminar una Fixed island";
+    public static final String ISLAND_NO_FOUND = "No se encontró la isla identificada con este color";
+    
     /**
      * Constructor for the IceepeeceeException.
      *

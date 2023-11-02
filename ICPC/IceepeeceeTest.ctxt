@@ -1,0 +1,18 @@
+#BlueJ class context
+comment0.target=IceepeeceeTest
+comment0.text=\r\n\ The\ test\ class\ IceepeeceeTest.\r\n\r\n\ @author\ Ana\ Mar\u00EDa\ Dur\u00E1n\ And\ Laura\ Natalia\ Rojas\r\n\ @version\ 23/03/23\r\n
+comment1.params=
+comment1.target=void\ setUp()
+comment2.params=
+comment2.target=void\ tearDown()
+comment3.params=
+comment3.target=void\ testAddIslandWithValidColorAndVertices()
+comment4.params=
+comment4.target=void\ testAddIslandWithInvalidColor()
+comment5.params=
+comment5.target=void\ testPhotographWithValidTheta()
+comment6.params=
+comment6.target=void\ testPhotographWithInvalidTheta()
+comment7.params=
+comment7.target=void\ testMakeVisible()
+numComments=8

@@ -1,11 +1,7 @@
 package ICPC;
 import Shapes.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.awt.*;
-import java.util.Set;
-import java.util.HashSet;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,7 +31,7 @@ public class Island {
      * @param color       The color of the island.
      */
     public Island(String color, int[][] vertexArray) throws IceepeeceeException {
-        isVisible = true;
+        isVisible = false;
         this.color = color;
         usedColors.add(color);
         // Asigna los vértices proporcionados al miembro vertexArray
